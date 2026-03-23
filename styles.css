@@ -478,8 +478,9 @@ body.editing [data-edit]:focus {
 
 /* Mobile */
 @media (max-width: 560px) {
-  .nav-inner { margin-left: 0.75rem; margin-right: 0.75rem; }
-  .hero { min-height: 100svh; padding: 4.5rem 0 3rem; }
+  nav { transform: translateY(-100%); transition: transform 0.3s; }
+  nav.scrolled { transform: translateY(0); }
+  .hero { min-height: 100svh; padding: 3rem 0 3rem; gap: 2.5rem; justify-content: flex-start; padding-top: 15svh; }
   .demo-box { padding: 1.25rem 1.5rem 1.25rem; }
   .features-grid { grid-template-columns: 1fr; gap: 1rem; }
   .pricing-grid { grid-template-columns: 1fr; border-radius: 12px; }
