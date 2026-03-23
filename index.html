@@ -143,27 +143,20 @@
 
     /* Hero */
     .hero {
-      min-height: 100vh; padding: 0;
+      min-height: 100vh;
       display: flex; flex-direction: column;
-    }
-    .hero-top {
-      padding-top: 5.5rem;
-      animation: blurIn 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s both;
+      justify-content: center;
+      padding: 5rem 0 4rem;
+      gap: 4rem;
     }
     .hero h1 {
       font-family: var(--serif); font-weight: 400;
       font-size: clamp(2.75rem, 6vw, 3.75rem);
       line-height: 1.15; letter-spacing: -0.025em;
+      animation: blurIn 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s both;
     }
     .hero h1 em {
       font-style: italic; color: var(--accent);
-    }
-    .hero-mid {
-      flex: 1; display: flex; align-items: center;
-    }
-    .hero-bottom {
-      padding-bottom: 3rem;
-      animation: fadeIn 1.5s ease-out 0.8s both;
     }
 
     /* Demo box */
@@ -200,7 +193,7 @@
     }
     .demo-text {
       font-size: 0.9rem; color: var(--text-2); font-weight: 300;
-      line-height: 1.65; min-height: 1.65em;
+      line-height: 1.65; min-height: 3.3em;
     }
     .demo-text .cursor {
       display: inline-block; width: 1.5px; height: 0.95em;
@@ -215,16 +208,18 @@
     /* Hero CTA */
     .hero-cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.625rem 1.5rem; border-radius: 8px;
-      background: var(--text); color: var(--bg);
-      text-decoration: none; font-size: 0.85rem; font-weight: 500;
+      margin-top: 0.5rem;
+      color: var(--accent); text-decoration: none;
+      font-size: 0.85rem; font-weight: 400; letter-spacing: 0.01em;
       transition: opacity 0.25s;
       animation: fadeIn 1.5s ease-out 0.8s both;
     }
-    .hero-cta:hover { opacity: 0.85; }
+    .hero-cta:hover { opacity: 0.7; }
     .hero-cta svg {
-      width: 14px; height: 14px; opacity: 0.6;
+      width: 14px; height: 14px; opacity: 0.7;
+      transition: transform 0.25s;
     }
+    .hero-cta:hover svg { transform: translateX(3px); }
 
     /* Divider */
     .divider { height: 1px; background: var(--border); margin: 2rem 0; }
@@ -353,7 +348,7 @@
 
     /* Mobile */
     @media (max-width: 560px) {
-      .hero { min-height: 100svh; }
+      .hero { min-height: 100svh; padding: 4.5rem 0 3rem; }
       .demo-box { padding: 1.25rem 1.5rem 1.25rem; }
       .details-grid { grid-template-columns: 1fr; gap: 1rem; }
       .numbers { gap: 2rem; }
@@ -384,25 +379,19 @@
   <div class="container">
 
     <section class="hero" id="demo">
-      <div class="hero-top">
-        <h1>Speech to text,<br><em>ridiculously smooth</em></h1>
-      </div>
-      <div class="hero-mid">
-        <div class="demo-box">
-          <div class="demo-header">
-            <div class="demo-dot" id="demoDot"></div>
-            <span class="demo-status" id="demoStatus">Listening...</span>
-          </div>
-          <canvas class="waveform-canvas" id="waveform" width="920" height="80"></canvas>
-          <p class="demo-text" id="demoText"><span class="cursor"></span></p>
+      <h1>Speech to text,<br><em>ridiculously smooth</em></h1>
+      <div class="demo-box">
+        <div class="demo-header">
+          <div class="demo-dot" id="demoDot"></div>
+          <span class="demo-status" id="demoStatus">Listening...</span>
         </div>
+        <canvas class="waveform-canvas" id="waveform" width="920" height="80"></canvas>
+        <p class="demo-text" id="demoText"><span class="cursor"></span></p>
       </div>
-      <div class="hero-bottom">
-        <a href="#join" class="hero-cta">
-          Try Hush!
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-      </div>
+      <a href="#join" class="hero-cta">
+        Join the waitlist
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
     </section>
 
     <div class="divider"></div>
