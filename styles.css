@@ -259,11 +259,6 @@ nav {
 .style-opt-preview {
   font-size: 0.75rem; color: var(--text-3); line-height: 1.5; font-weight: 300;
 }
-.style-opt-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent); display: none;
-}
-.style-opt.active .style-opt-dot { display: block; }
 
 @media (max-width: 560px) {
   .style-options { grid-template-columns: 1fr; }
@@ -477,7 +472,11 @@ body.editing [data-edit]:focus {
   .hero { min-height: 100svh; padding: 4.5rem 0 3rem; }
   .demo-box { padding: 1.25rem 1.5rem 1.25rem; }
   .features-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; border-radius: 12px; }
+  .plan { padding: 1.25rem 1.5rem; }
+  .plan-price { font-size: 1.4rem; }
+  .plan-desc { margin-bottom: 1rem; }
+  .plan-cta { padding: 0.45rem 0.85rem; }
   .cta-buttons { flex-direction: column; }
   .btn { justify-content: center; }
   .nav-links a:first-child { display: none; }
