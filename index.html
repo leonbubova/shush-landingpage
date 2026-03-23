@@ -279,9 +279,9 @@
     }
     .style-opt-dot {
       width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent); opacity: 0; transition: opacity 0.3s;
+      background: var(--accent); display: none;
     }
-    .style-opt.active .style-opt-dot { opacity: 1; }
+    .style-opt.active .style-opt-dot { display: block; }
 
     @media (max-width: 560px) {
       .style-options { grid-template-columns: 1fr; }
@@ -437,6 +437,59 @@
     footer a:hover { color: var(--text-2); }
     .footer-links { display: flex; gap: 1.5rem; }
 
+    /* Editor mode */
+    .edit-bar {
+      display: none; position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 200; background: rgba(20, 20, 24, 0.95); border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-radius: 12px; padding: 0.6rem 0.75rem; gap: 0.5rem;
+      align-items: center; font-size: 0.7rem; color: var(--text-2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .edit-bar.visible { display: flex; }
+    .edit-bar-label {
+      font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-3); margin-right: 0.25rem;
+    }
+    .edit-bar button {
+      padding: 0.35rem 0.7rem; border-radius: 6px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-2); font-size: 0.65rem;
+      cursor: pointer; font-family: var(--sans); transition: background-color 0.2s;
+    }
+    .edit-bar button:hover { background: rgba(255,255,255,0.06); }
+    .edit-bar button.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+    .edit-bar .edit-export {
+      background: rgba(196, 181, 253, 0.15); border-color: rgba(196, 181, 253, 0.3);
+      color: var(--accent);
+    }
+    .edit-bar .edit-close {
+      margin-left: 0.25rem; background: none; border: none; color: var(--text-3);
+      font-size: 0.85rem; padding: 0.2rem 0.4rem;
+    }
+
+    body.editing a,
+    body.editing button:not(.edit-bar button):not(.style-opt) {
+      pointer-events: none;
+    }
+    body.editing [data-key],
+    body.editing [data-edit] {
+      pointer-events: auto;
+      outline: 1px dashed rgba(196, 181, 253, 0.25);
+      outline-offset: 4px;
+      cursor: text;
+      border-radius: 4px;
+      transition: outline-color 0.2s;
+    }
+    body.editing [data-key]:hover,
+    body.editing [data-edit]:hover {
+      outline-color: rgba(196, 181, 253, 0.5);
+    }
+    body.editing [data-key]:focus,
+    body.editing [data-edit]:focus {
+      outline-color: var(--accent);
+      outline-style: solid;
+    }
+
     /* Mobile */
     @media (max-width: 560px) {
       .hero { min-height: 100svh; padding: 4.5rem 0 3rem; }
@@ -451,6 +504,12 @@
 </head>
 <body>
 
+  <div class="edit-bar" id="editBar">
+    <span class="edit-bar-label">editing: <strong id="editStyleLabel">casual</strong></span>
+    <button class="edit-export" id="editExport">export JSON</button>
+    <button class="edit-close" id="editClose">&times;</button>
+  </div>
+
   <div class="fluid-bg">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -459,10 +518,11 @@
 
   <nav>
     <div class="nav-inner">
-      <a href="#" class="nav-logo">shush</a>
+      <a href="#" class="nav-logo" data-edit>shush</a>
       <div class="nav-links">
-        <a href="https://github.com/leonbubova/hush-app" target="_blank" rel="noopener">GitHub</a>
-        <a href="#join">Community</a>
+        <a href="https://github.com/leonbubova/hush-app" target="_blank" rel="noopener" data-edit>GitHub</a>
+        <a href="#join" data-edit>Community</a>
+        <a href="#" id="editToggle">Edit</a>
       </div>
     </div>
   </nav>
@@ -471,8 +531,8 @@
 
     <section class="hero" id="demo">
       <div class="hero-copy">
-        <h1>deine gedanken direkt als text. <em>ohne tippen &lt;3</em></h1>
-        <p class="hero-sub">shush nimmt auf, was du sagst, und wandelt es sofort in perfekt formatierten text um. direkt in deine zwischenablage.</p>
+        <h1 data-key="heroTitle">deine gedanken direkt als text. <em>ohne tippen &lt;3</em></h1>
+        <p class="hero-sub" data-key="heroSub">shush nimmt auf, was du sagst, und wandelt es sofort in perfekt formatierten text um. direkt in deine zwischenablage.</p>
       </div>
       <div class="demo-box">
         <div class="demo-header">
@@ -483,7 +543,7 @@
         <p class="demo-text" id="demoText"><span class="cursor"></span></p>
       </div>
       <a href="#pricing" class="hero-cta">
-        jetzt 7 tage kostenlos testen
+<span data-key="heroCta">jetzt 7 tage kostenlos testen</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </section>
@@ -491,8 +551,8 @@
     <div class="divider"></div>
 
     <section class="style-switch fade-in">
-      <p class="section-label">maßgeschneidert</p>
-      <p class="style-switch-desc">du entscheidest, wie dein text aussieht. shush passt sich deinem schreibstil an — probier es aus:</p>
+      <p class="section-label" data-edit>maßgeschneidert</p>
+      <p class="style-switch-desc" data-edit>du entscheidest, wie dein text aussieht. shush passt sich deinem schreibstil an — probier es aus:</p>
       <div class="style-options">
         <button class="style-opt active" data-style="casual">
           <div class="style-opt-name"><span class="style-opt-dot"></span> entspannt</div>
@@ -512,27 +572,27 @@
     <div class="divider"></div>
 
     <section class="steps fade-in">
-      <p class="section-label">wie es funktioniert</p>
+      <p class="section-label" data-edit>wie es funktioniert</p>
       <div class="steps-list">
         <div class="step">
           <span class="step-num">1.</span>
           <div>
-            <h3>shortcut</h3>
-            <p>drück zweimal die lautstärketaste — egal in welcher app.</p>
+            <h3 data-key="step1h">shortcut</h3>
+            <p data-key="step1p">drück zweimal die lautstärketaste — egal in welcher app.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">2.</span>
           <div>
-            <h3>sprechen</h3>
-            <p>sag, was dir durch den kopf geht.</p>
+            <h3 data-key="step2h">sprechen</h3>
+            <p data-key="step2p">sag, was dir durch den kopf geht.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">3.</span>
           <div>
-            <h3>fertig</h3>
-            <p>dein text ist in der zwischenablage. füg ihn ein, wo du willst.</p>
+            <h3 data-key="step3h">fertig</h3>
+            <p data-key="step3p">dein text ist in der zwischenablage. füg ihn ein, wo du willst.</p>
           </div>
         </div>
       </div>
@@ -541,35 +601,35 @@
     <div class="divider"></div>
 
     <section class="features">
-      <p class="section-label fade-in">vorteile</p>
+      <p class="section-label fade-in" data-edit>vorteile</p>
       <div class="features-grid">
         <div class="feature-card glass fade-in delay-1">
           <div class="feature-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
           </div>
-          <h3>überall einsatzbereit</h3>
-          <p>egal ob whatsapp, notion, google docs oder deine ideen-app. shush fügt den text dort ein, wo du ihn brauchst.</p>
+          <h3 data-key="feat1h">überall einsatzbereit</h3>
+          <p data-key="feat1p">egal ob whatsapp, notion, google docs oder deine ideen-app. shush fügt den text dort ein, wo du ihn brauchst.</p>
         </div>
         <div class="feature-card glass fade-in delay-2">
           <div class="feature-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </div>
-          <h3>multilingual</h3>
-          <p>sprich einfach los. shush erkennt die sprache automatisch und transkribiert fehlerfrei.</p>
+          <h3 data-key="feat2h">multilingual</h3>
+          <p data-key="feat2p">sprich einfach los. shush erkennt die sprache automatisch und transkribiert fehlerfrei.</p>
         </div>
         <div class="feature-card glass fade-in delay-3">
           <div class="feature-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <h3>barrierefrei gedacht</h3>
-          <p>wir wollen, dass jede stimme genutzt werden kann. einfachste bedienung ohne komplizierte menüs.</p>
+          <h3 data-key="feat3h">barrierefrei gedacht</h3>
+          <p data-key="feat3p">wir wollen, dass jede stimme genutzt werden kann. einfachste bedienung ohne komplizierte menüs.</p>
         </div>
         <div class="feature-card glass fade-in delay-3">
           <div class="feature-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <h3>zeit sparen und tracken</h3>
-          <p>sieh in deinen stats, wie viele stunden tippen du dir diese woche gespart hast.</p>
+          <h3 data-key="feat4h">zeit sparen und tracken</h3>
+          <p data-key="feat4p">sieh in deinen stats, wie viele stunden tippen du dir diese woche gespart hast.</p>
         </div>
       </div>
     </section>
@@ -577,62 +637,62 @@
     <div class="divider"></div>
 
     <section class="testimonial fade-in">
-      <blockquote>„als journalist muss ich oft schnell gedanken festhalten. shush ist das erste tool, das meinen workflow nicht unterbricht, sondern beschleunigt."</blockquote>
-      <cite>— platzhalter: name, designer / journalist / entwickler</cite>
+      <blockquote data-key="quote">„als journalist muss ich oft schnell gedanken festhalten. shush ist das erste tool, das meinen workflow nicht unterbricht, sondern beschleunigt."</blockquote>
+      <cite data-edit>— platzhalter: name, designer / journalist / entwickler</cite>
       <div class="compat-logos">
-        <span>WhatsApp</span>
-        <span>Telegram</span>
-        <span>Notion</span>
-        <span>Google Docs</span>
-        <span>Slack</span>
+        <span data-edit>WhatsApp</span>
+        <span data-edit>Telegram</span>
+        <span data-edit>Notion</span>
+        <span data-edit>Google Docs</span>
+        <span data-edit>Slack</span>
       </div>
     </section>
 
     <div class="divider"></div>
 
     <section class="pricing fade-in" id="pricing">
-      <h2>wähle deinen plan</h2>
+      <h2 data-key="pricingTitle">wähle deinen plan</h2>
       <div class="pricing-grid">
         <div class="plan">
-          <span class="plan-name">starter</span>
-          <span class="plan-price">0 €</span>
-          <p class="plan-desc">7 tage volle funktion.<br>perfekt zum ausprobieren.</p>
-          <a href="#join" class="plan-cta">jetzt testen</a>
+          <span class="plan-name" data-edit>starter</span>
+          <span class="plan-price" data-edit>0 €</span>
+          <p class="plan-desc" data-edit>7 tage volle funktion.<br>perfekt zum ausprobieren.</p>
+          <a href="#join" class="plan-cta" data-edit>jetzt testen</a>
         </div>
         <div class="plan">
-          <span class="plan-name">basic</span>
-          <span class="plan-price">27 € <span>/ jahr</span></span>
-          <p class="plan-desc">voller zugriff auf alle features.<br>preisgarantie für das erste jahr.</p>
-          <a href="#join" class="plan-cta primary">jetzt sichern</a>
+          <span class="plan-name" data-edit>basic</span>
+          <span class="plan-price" data-edit>27 € <span>/ jahr</span></span>
+          <p class="plan-desc" data-edit>voller zugriff auf alle features.<br>preisgarantie für das erste jahr.</p>
+          <a href="#join" class="plan-cta primary" data-edit>jetzt sichern</a>
         </div>
         <div class="plan">
-          <span class="plan-name">enterprise</span>
-          <span class="plan-price">individuell</span>
-          <p class="plan-desc">ab 10 nutzern.<br>maßgeschneiderte lösung.</p>
-          <a href="#join" class="plan-cta">sales call buchen</a>
+          <span class="plan-name" data-edit>enterprise</span>
+          <span class="plan-price" data-edit>individuell</span>
+          <p class="plan-desc" data-edit>ab 10 nutzern.<br>maßgeschneiderte lösung.</p>
+          <a href="#join" class="plan-cta" data-edit>sales call buchen</a>
         </div>
       </div>
-      <p class="pricing-note">hinweis: nach dem ersten jahr schauen wir gemeinsam, wie es weitergeht. wir garantieren den preis aktuell nur für die ersten 12 monate :)</p>
+      <p class="pricing-note" data-edit>hinweis: nach dem ersten jahr schauen wir gemeinsam, wie es weitergeht. wir garantieren den preis aktuell nur für die ersten 12 monate :)</p>
     </section>
 
     <div class="divider"></div>
 
     <section class="cta fade-in" id="join">
       <div class="cta-glow"></div>
-      <h2>werde teil der <em>reise</em></h2>
-      <p>wir dokumentieren die entwicklung von shush transparent. du willst feedback geben oder zu den ersten usern gehören?</p>
+      <h2 data-key="ctaTitle">werde teil der <em>reise</em></h2>
+      <p data-key="ctaSub">wir dokumentieren die entwicklung von shush transparent. du willst feedback geben oder zu den ersten usern gehören?</p>
       <div class="cta-buttons">
         <a href="https://chat.whatsapp.com/YOUR_GROUP_LINK" target="_blank" rel="noopener" class="btn btn-primary">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Community beitreten
+          <span data-edit>Community beitreten</span>
         </a>
       </div>
     </section>
 
     <footer>
-      <span>shush</span>
+      <span data-edit>shush</span>
       <div class="footer-links">
-        <a href="https://github.com/leonbubova/hush-app" target="_blank" rel="noopener">Source</a>
+        <a href="https://github.com/leonbubova/hush-app" target="_blank" rel="noopener" data-edit>Source</a>
       </div>
     </footer>
 
@@ -784,18 +844,18 @@
     const styles = {
       casual: {
         heroTitle: 'deine gedanken direkt als text. <em>ohne tippen &lt;3</em>',
-        heroSub: 'shush nimmt auf, was du sagst, und macht daraus sofort fertigen text — direkt in deine zwischenablage. easy.',
+        heroSub: 'shush nimmt auf, was du sagst, und macht daraus sofort fertigen text -> direkt in deine lieblings apps.',
         heroCta: 'jetzt 7 tage kostenlos testen ✌️',
-        step1h: 'shortcut', step1p: 'drück zweimal die lautstärketaste — egal in welcher app.',
+        step1h: 'drücken', step1p: 'drück zwei mal auf die leiser taste, egal in welcher app.',
         step2h: 'sprechen', step2p: 'sag einfach, was dir durch den kopf geht.',
-        step3h: 'fertig', step3p: 'dein text ist in der zwischenablage. füg ihn ein, wo du willst.',
-        feat1h: 'überall einsatzbereit', feat1p: 'egal ob whatsapp, notion, google docs oder deine ideen-app — shush fügt den text dort ein, wo du ihn brauchst.',
-        feat2h: 'multilingual', feat2p: 'sprich einfach los. shush erkennt die sprache automatisch und transkribiert fehlerfrei.',
+        step3h: 'nochmal drücken', step3p: 'dein text wird ganz entspannt eingefügt, genau wo du willst.',
+        feat1h: 'überall einsatzbereit', feat1p: 'egal ob whatsapp, notion, google docs oder notiz app. shush fügt den text dort ein, wo du ihn brauchst.',
+        feat2h: 'multilingual', feat2p: 'sprich einfach los. shush erkennt die sprache und transkribiert fehlerfrei. auch deutsch und englisch gemischt sind kein problem.',
         feat3h: 'barrierefrei gedacht', feat3p: 'wir wollen, dass jede stimme genutzt werden kann. einfachste bedienung ohne komplizierte menüs.',
         feat4h: 'zeit sparen und tracken', feat4p: 'sieh in deinen stats, wie viele stunden tippen du dir diese woche gespart hast.',
         quote: '„als journalist muss ich oft schnell gedanken festhalten. shush ist das erste tool, das meinen workflow nicht unterbricht, sondern beschleunigt :)"',
         pricingTitle: 'wähle deinen plan ✨',
-        ctaTitle: 'werde teil der <em>reise</em> 🚀',
+        ctaTitle: 'werde teil der <em>reise\u00a0</em>🚀',
         ctaSub: 'wir dokumentieren die entwicklung von shush transparent. du willst feedback geben oder zu den ersten usern gehören?',
         ctaBtn: 'community beitreten ✌️',
         phrases: [
@@ -806,20 +866,20 @@
         ]
       },
       formal: {
-        heroTitle: 'Ihre Gedanken direkt als Text. <em>Ohne Tippen.</em>',
-        heroSub: 'Shush nimmt auf, was Sie sagen, und wandelt es sofort in perfekt formatierten Text um. Direkt in Ihre Zwischenablage.',
+        heroTitle: 'Deine Gedanken direkt als Text. <em>Ohne Tippen.</em>',
+        heroSub: 'Shush nimmt auf, was du sagst, und wandelt es sofort in perfekt formatierten Text um. Direkt in deinen Apps.',
         heroCta: 'Jetzt 7 Tage kostenlos testen',
-        step1h: 'Shortcut', step1p: 'Drücken Sie zweimal die Lautstärketaste — in jeder beliebigen Anwendung.',
-        step2h: 'Sprechen', step2p: 'Sagen Sie, was Ihnen durch den Kopf geht.',
-        step3h: 'Fertig', step3p: 'Ihr Text befindet sich in der Zwischenablage. Fügen Sie ihn dort ein, wo Sie ihn benötigen.',
-        feat1h: 'Universell einsetzbar', feat1p: 'Ob WhatsApp, Notion, Google Docs oder Ihre bevorzugte Notiz-App — Shush fügt den Text genau dort ein, wo Sie ihn benötigen.',
-        feat2h: 'Mehrsprachig', feat2p: 'Sprechen Sie einfach los. Shush erkennt die Sprache automatisch und transkribiert zuverlässig.',
+        step1h: 'Doppeltippen', step1p: 'Drück zweimal die Lautstärketaste in jeder beliebigen Anwendung.',
+        step2h: 'Sprechen', step2p: 'Sag was dir durch den Kopf geht.',
+        step3h: 'Nochmal Doppeltippen', step3p: 'Dein Text wird automatisch eingefügt. Direkt in deine App.',
+        feat1h: 'Universell einsetzbar', feat1p: 'Ob WhatsApp, Notion, Google Docs oder Deine bevorzugte Notiz-App. Shush fügt den Text genau dort ein, wo du Ihn.',
+        feat2h: 'Mehrsprachig', feat2p: 'Sprich einfach los. Shush erkennt die Sprache automatisch und transkribiert zuverlässig.',
         feat3h: 'Barrierefreiheit im Fokus', feat3p: 'Wir möchten, dass jede Stimme genutzt werden kann. Intuitive Bedienung ohne komplexe Menüführung.',
-        feat4h: 'Zeitersparnis im Überblick', feat4p: 'Verfolgen Sie in Ihren Statistiken, wie viele Stunden Tipparbeit Sie sich in dieser Woche gespart haben.',
+        feat4h: 'Zeitersparnis im Überblick', feat4p: 'Verfolg in deinen Statistiken, wie viele Stunden Tipparbeit Du dir in dieser Woche gespart hast.',
         quote: '„Als Journalist muss ich häufig schnell Gedanken festhalten. Shush ist das erste Tool, das meinen Workflow nicht unterbricht, sondern merklich beschleunigt."',
-        pricingTitle: 'Wählen Sie Ihren Plan',
-        ctaTitle: 'Werden Sie Teil der <em>Reise</em>',
-        ctaSub: 'Wir dokumentieren die Entwicklung von Shush transparent. Möchten Sie Feedback geben oder zu den ersten Nutzern gehören?',
+        pricingTitle: 'Wählen Deinen Plan',
+        ctaTitle: 'Werde Teil der <em>Reise</em>',
+        ctaSub: 'Wir dokumentieren die Entwicklung von Shush transparent. Du möchtest Feedback geben oder zu den ersten Nutzern gehören?',
         ctaBtn: 'Der Community beitreten',
         phrases: [
           "Bitte erinnern Sie mich daran, nach der Arbeit Lebensmittel einzukaufen.",
@@ -855,50 +915,33 @@
 
     let currentStyle = 'casual';
 
+    // Keys that use innerHTML (contain <em> tags)
+    const htmlKeys = new Set(['heroTitle', 'ctaTitle']);
+
     function applyStyle(style) {
       currentStyle = style;
       const s = styles[style];
 
-      // Update buttons
       document.querySelectorAll('.style-opt').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.style === style);
       });
 
-      // Hero
-      document.querySelector('.hero h1').innerHTML = s.heroTitle;
-      document.querySelector('.hero-sub').textContent = s.heroSub;
-      document.querySelector('.hero-cta').innerHTML = s.heroCta + ' <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+      // Apply all data-key elements
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.dataset.key;
+        if (s[key] !== undefined) {
+          if (htmlKeys.has(key)) el.innerHTML = s[key];
+          else el.textContent = s[key];
+        }
+      });
 
-      // Steps
-      const steps = document.querySelectorAll('.step');
-      steps[0].querySelector('h3').textContent = s.step1h;
-      steps[0].querySelector('p').textContent = s.step1p;
-      steps[1].querySelector('h3').textContent = s.step2h;
-      steps[1].querySelector('p').textContent = s.step2p;
-      steps[2].querySelector('h3').textContent = s.step3h;
-      steps[2].querySelector('p').textContent = s.step3p;
+      // Hero CTA special (has SVG sibling)
+      const ctaSpan = document.querySelector('[data-key="heroCta"]');
+      if (ctaSpan) ctaSpan.textContent = s.heroCta;
 
-      // Features
-      const feats = document.querySelectorAll('.feature-card');
-      feats[0].querySelector('h3').textContent = s.feat1h;
-      feats[0].querySelector('p').textContent = s.feat1p;
-      feats[1].querySelector('h3').textContent = s.feat2h;
-      feats[1].querySelector('p').textContent = s.feat2p;
-      feats[2].querySelector('h3').textContent = s.feat3h;
-      feats[2].querySelector('p').textContent = s.feat3p;
-      feats[3].querySelector('h3').textContent = s.feat4h;
-      feats[3].querySelector('p').textContent = s.feat4p;
-
-      // Testimonial
-      document.querySelector('.testimonial blockquote').textContent = s.quote;
-
-      // Pricing
-      document.querySelector('.pricing h2').textContent = s.pricingTitle;
-
-      // CTA
-      document.querySelector('.cta h2').innerHTML = s.ctaTitle;
-      document.querySelector('.cta p').textContent = s.ctaSub;
-      document.querySelector('.cta .btn-primary').innerHTML = document.querySelector('.cta .btn-primary svg').outerHTML + ' ' + s.ctaBtn;
+      // CTA button
+      const ctaBtn = document.querySelector('.cta .btn-primary');
+      if (ctaBtn) ctaBtn.innerHTML = ctaBtn.querySelector('svg').outerHTML + ' ' + s.ctaBtn;
 
       // Update demo phrases
       phrases.length = 0;
@@ -906,11 +949,52 @@
     }
 
     document.querySelectorAll('.style-opt').forEach(btn => {
-      btn.addEventListener('click', () => applyStyle(btn.dataset.style));
+      btn.addEventListener('click', () => {
+        applyStyle(btn.dataset.style);
+        const label = document.getElementById('editStyleLabel');
+        if (label) label.textContent = btn.dataset.style;
+      });
     });
 
-    // Apply casual style on load so static HTML matches JS state
     applyStyle('casual');
+
+    // --- Editor ---
+    let editMode = false;
+
+    function toggleEdit(on) {
+      editMode = on;
+      document.body.classList.toggle('editing', on);
+      document.getElementById('editBar').classList.toggle('visible', on);
+      document.getElementById('editStyleLabel').textContent = currentStyle;
+      document.querySelectorAll('[data-key], [data-edit]').forEach(el => {
+        el.contentEditable = on ? 'true' : 'false';
+      });
+    }
+
+    document.getElementById('editToggle').addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleEdit(!editMode);
+    });
+
+    document.getElementById('editClose').addEventListener('click', () => toggleEdit(false));
+
+    // Save edits back to styles object on blur
+    document.addEventListener('focusout', (e) => {
+      if (!editMode || !e.target.dataset.key) return;
+      const key = e.target.dataset.key;
+      const value = htmlKeys.has(key) ? e.target.innerHTML : e.target.textContent;
+      styles[currentStyle][key] = value;
+    });
+
+    // Export
+    document.getElementById('editExport').addEventListener('click', () => {
+      const json = JSON.stringify(styles, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'shush-styles.json'; a.click();
+      URL.revokeObjectURL(url);
+    });
   </script>
 </body>
 </html>
