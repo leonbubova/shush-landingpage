@@ -165,7 +165,7 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.75rem 2rem 1.5rem;
-      max-width: 500px;
+      max-width: 100%;
       animation: fadeIn 1.5s ease-out 0.5s both;
     }
     .demo-header {
@@ -269,22 +269,18 @@
       color: var(--text-2); font-size: 0.9rem; font-weight: 300; margin-bottom: 2rem;
     }
     .price-card {
-      display: inline-flex; align-items: center; gap: 2rem;
-      padding: 1.5rem 2rem; border-radius: 16px;
+      display: inline-flex; align-items: flex-start; gap: 2.5rem;
+      padding: 2rem 2.5rem; border-radius: 16px;
     }
-    .price-trial { display: flex; flex-direction: column; }
-    .price-trial-label {
+    .price-trial, .price-full { display: flex; flex-direction: column; }
+    .price-trial-label, .price-full-label {
       font-size: 0.7rem; color: var(--text-3); text-transform: uppercase;
       letter-spacing: 0.08em;
     }
-    .price-trial-days {
+    .price-trial-days, .price-amount {
       font-family: var(--serif); font-size: 1.5rem; color: var(--text);
     }
-    .price-divider { width: 1px; height: 40px; background: var(--border); }
-    .price-full { display: flex; flex-direction: column; }
-    .price-amount {
-      font-family: var(--serif); font-size: 1.5rem; color: var(--text);
-    }
+    .price-divider { width: 1px; align-self: stretch; background: var(--border); }
     .price-detail { font-size: 0.75rem; color: var(--text-3); }
     .price-note {
       margin-top: 1rem; font-size: 0.8rem; color: var(--text-3); font-weight: 300;
@@ -444,11 +440,13 @@
         <div class="price-trial">
           <span class="price-trial-label">Free trial</span>
           <span class="price-trial-days">3 days</span>
+          <span class="price-detail">no card required</span>
         </div>
         <div class="price-divider"></div>
         <div class="price-full">
+          <span class="price-full-label">Then</span>
           <span class="price-amount">&euro;23</span>
-          <span class="price-detail">one-time &middot; yours forever</span>
+          <span class="price-detail">1 year</span>
         </div>
       </div>
       <p class="price-note">No subscriptions. No upsells. No nonsense.</p>
