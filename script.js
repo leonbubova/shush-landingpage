@@ -9,6 +9,12 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-40px' });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+// Nav scroll effect
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
 // --- Organic waveform ---
 const canvas = document.getElementById('waveform');
 const ctx = canvas.getContext('2d');
