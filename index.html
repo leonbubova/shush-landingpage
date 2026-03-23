@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hush! — Speech to Text for Android</title>
-  <meta name="description" content="Hush! turns your voice into text. Double-tap volume, speak, paste anywhere. Ridiculously smooth.">
-  <meta property="og:title" content="Hush! — Speech to Text for Android">
-  <meta property="og:description" content="Double-tap volume, speak, paste anywhere. Ridiculously smooth speech to text.">
+  <title>shush — deine stimme, dein text</title>
+  <meta name="description" content="shush nimmt auf, was du sagst, und wandelt es sofort in text um. direkt in deine zwischenablage.">
+  <meta property="og:title" content="shush — deine stimme, dein text">
+  <meta property="og:description" content="shush nimmt auf, was du sagst, und wandelt es sofort in text um. direkt in deine zwischenablage.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,7 +110,7 @@
     }
     .nav-logo {
       font-size: 0.85rem; font-weight: 500; color: var(--text-3);
-      text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase;
+      text-decoration: none; letter-spacing: 0.04em; text-transform: lowercase;
     }
     .nav-logo:hover { color: var(--text-2); }
     .nav-links {
@@ -149,14 +149,18 @@
       padding: 5rem 0 4rem;
       gap: 4rem;
     }
+    .hero-copy { animation: blurIn 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s both; }
     .hero h1 {
       font-family: var(--serif); font-weight: 400;
-      font-size: clamp(2.75rem, 6vw, 3.75rem);
-      line-height: 1.15; letter-spacing: -0.025em;
-      animation: blurIn 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s both;
+      font-size: clamp(2.5rem, 5.5vw, 3.5rem);
+      line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 1rem;
     }
     .hero h1 em {
       font-style: italic; color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 0.95rem; color: var(--text-2); max-width: 440px;
+      line-height: 1.7; font-weight: 300;
     }
 
     /* Demo box */
@@ -224,66 +228,154 @@
     /* Divider */
     .divider { height: 1px; background: var(--border); margin: 2rem 0; }
 
-    /* Details */
-    .details { padding: 3rem 0; }
-    .details-label {
+    /* Section heading */
+    .section-label {
       font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em;
       color: var(--text-3); margin-bottom: 2.5rem;
     }
-    .details-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+
+    /* Steps */
+    .steps { padding: 3rem 0; }
+    .steps-list { display: flex; flex-direction: column; gap: 1.75rem; }
+    .step {
+      display: flex; gap: 1.25rem; align-items: flex-start;
     }
-    .detail-card {
-      padding: 1.75rem; border-radius: 16px;
-      transition: background 0.5s;
+    .step-num {
+      font-family: var(--serif); font-size: 1.1rem; color: var(--accent);
+      flex-shrink: 0; width: 1.5rem; padding-top: 0.1rem;
     }
-    .detail-card:hover { background: rgba(255, 255, 255, 0.04); }
-    .detail-card h3 {
-      font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
+    .step h3 {
+      font-size: 0.9rem; font-weight: 500; margin-bottom: 0.3rem;
     }
-    .detail-card p {
+    .step p {
       font-size: 0.825rem; color: var(--text-2); line-height: 1.65; font-weight: 300;
     }
 
-    /* Numbers */
-    .numbers {
-      padding: 3rem 0; display: flex; gap: 3rem; flex-wrap: wrap;
+    /* Style switcher */
+    .style-switch { padding: 3rem 0; }
+    .style-switch-desc {
+      font-size: 0.9rem; color: var(--text-2); font-weight: 300;
+      line-height: 1.65; margin-bottom: 2rem; max-width: 440px;
     }
-    .number-item { display: flex; flex-direction: column; }
-    .number-val {
-      font-family: var(--serif); font-size: 2.25rem; font-weight: 400;
-      letter-spacing: -0.03em; color: var(--text);
+    .style-options {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border-radius: 12px; overflow: hidden;
     }
-    .number-label {
-      font-size: 0.75rem; color: var(--text-3); margin-top: 0.125rem;
+    .style-opt {
+      background: var(--bg); padding: 1.5rem;
+      cursor: pointer; transition: background 0.3s;
+      border: none; color: var(--text); text-align: left;
+      font-family: var(--sans);
+    }
+    .style-opt:hover { background: rgba(255, 255, 255, 0.03); }
+    .style-opt.active { background: rgba(196, 181, 253, 0.06); }
+    .style-opt-name {
+      font-size: 0.85rem; font-weight: 500; margin-bottom: 0.4rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .style-opt.active .style-opt-name { color: var(--accent); }
+    .style-opt-preview {
+      font-size: 0.75rem; color: var(--text-3); line-height: 1.5; font-weight: 300;
+    }
+    .style-opt-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); opacity: 0; transition: opacity 0.3s;
+    }
+    .style-opt.active .style-opt-dot { opacity: 1; }
+
+    @media (max-width: 560px) {
+      .style-options { grid-template-columns: 1fr; }
+    }
+
+    /* Features */
+    .features { padding: 3rem 0; }
+    .features-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    }
+    .feature-card {
+      padding: 1.75rem; border-radius: 16px;
+      transition: background 0.5s;
+    }
+    .feature-card:hover { background: rgba(255, 255, 255, 0.04); }
+    .feature-icon {
+      width: 2rem; height: 2rem; margin-bottom: 1rem;
+      color: var(--accent); opacity: 0.7;
+    }
+    .feature-icon svg { width: 100%; height: 100%; }
+    .feature-card h3 {
+      font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .feature-card p {
+      font-size: 0.825rem; color: var(--text-2); line-height: 1.65; font-weight: 300;
+    }
+
+    /* Testimonial */
+    .testimonial { padding: 3rem 0; }
+    .testimonial blockquote {
+      font-family: var(--serif); font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      line-height: 1.6; color: var(--text-2); margin-bottom: 1.25rem;
+      max-width: 540px;
+    }
+    .testimonial cite {
+      font-style: normal; font-size: 0.8rem; color: var(--text-3);
+    }
+    .compat-logos {
+      display: flex; gap: 1.75rem; margin-top: 2.5rem;
+      align-items: center;
+    }
+    .compat-logos span {
+      font-size: 0.7rem; color: var(--text-3); font-weight: 400;
+      letter-spacing: 0.02em; opacity: 0.5;
     }
 
     /* Pricing */
     .pricing { padding: 3rem 0; }
     .pricing h2 {
       font-family: var(--serif); font-size: clamp(1.75rem, 4vw, 2.25rem);
-      font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.5rem;
+      font-weight: 400; letter-spacing: -0.02em; margin-bottom: 2rem;
     }
-    .pricing-desc {
-      color: var(--text-2); font-size: 0.9rem; font-weight: 300; margin-bottom: 2rem;
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border-radius: 16px; overflow: hidden;
     }
-    .price-card {
-      display: inline-flex; align-items: flex-start; gap: 2.5rem;
-      padding: 2rem 2.5rem; border-radius: 16px;
+    .plan {
+      background: var(--bg); padding: 2rem;
+      display: flex; flex-direction: column;
     }
-    .price-trial, .price-full { display: flex; flex-direction: column; }
-    .price-trial-label, .price-full-label {
-      font-size: 0.7rem; color: var(--text-3); text-transform: uppercase;
-      letter-spacing: 0.08em;
+    .plan-name {
+      font-size: 0.8rem; font-weight: 500; margin-bottom: 0.75rem;
+      letter-spacing: 0.02em;
     }
-    .price-trial-days, .price-amount {
-      font-family: var(--serif); font-size: 1.5rem; color: var(--text);
+    .plan-price {
+      font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.25rem;
     }
-    .price-divider { width: 1px; align-self: stretch; background: var(--border); }
-    .price-detail { font-size: 0.75rem; color: var(--text-3); }
-    .price-note {
-      margin-top: 1rem; font-size: 0.8rem; color: var(--text-3); font-weight: 300;
+    .plan-price span {
+      font-family: var(--sans); font-size: 0.8rem; font-weight: 300;
+      color: var(--text-2);
+    }
+    .plan-desc {
+      font-size: 0.75rem; color: var(--text-3); line-height: 1.5;
+      margin-bottom: 1.5rem; flex: 1;
+    }
+    .plan-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none;
+      font-size: 0.8rem; font-weight: 500; transition: all 0.25s;
+      border: 1px solid var(--border); color: var(--text);
+    }
+    .plan-cta:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .plan-cta.primary {
+      background: var(--accent); color: var(--bg); border-color: var(--accent);
+    }
+    .plan-cta.primary:hover { opacity: 0.85; }
+    .pricing-note {
+      margin-top: 1.25rem; font-size: 0.75rem; color: var(--text-3);
+      font-weight: 300; max-width: 520px; line-height: 1.6;
     }
 
     /* CTA */
@@ -302,7 +394,7 @@
     .cta h2 em { font-style: italic; color: var(--accent); }
     .cta p {
       color: var(--text-2); font-size: 0.9rem; font-weight: 300;
-      margin-bottom: 2rem; max-width: 420px; line-height: 1.65;
+      margin-bottom: 2rem; max-width: 440px; line-height: 1.65;
       position: relative;
     }
     .cta-buttons {
@@ -346,8 +438,8 @@
     @media (max-width: 560px) {
       .hero { min-height: 100svh; padding: 4.5rem 0 3rem; }
       .demo-box { padding: 1.25rem 1.5rem 1.25rem; }
-      .details-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .numbers { gap: 2rem; }
+      .features-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
       .cta-buttons { flex-direction: column; }
       .btn { justify-content: center; }
       .nav-links a:first-child { display: none; }
@@ -364,10 +456,10 @@
 
   <nav>
     <div class="nav-inner">
-      <a href="#" class="nav-logo">Hush!</a>
+      <a href="#" class="nav-logo">shush</a>
       <div class="nav-links">
         <a href="https://github.com/leonbubova/hush-app" target="_blank" rel="noopener">GitHub</a>
-        <a href="#join">Waitlist</a>
+        <a href="#join">Community</a>
       </div>
     </div>
   </nav>
@@ -375,103 +467,167 @@
   <div class="container">
 
     <section class="hero" id="demo">
-      <h1>Speech to text,<br><em>ridiculously smooth</em></h1>
+      <div class="hero-copy">
+        <h1>deine gedanken direkt als text. <em>ohne tippen &lt;3</em></h1>
+        <p class="hero-sub">shush nimmt auf, was du sagst, und wandelt es sofort in perfekt formatierten text um. direkt in deine zwischenablage.</p>
+      </div>
       <div class="demo-box">
         <div class="demo-header">
           <div class="demo-dot" id="demoDot"></div>
-          <span class="demo-status" id="demoStatus">Listening...</span>
+          <span class="demo-status" id="demoStatus">nimmt auf...</span>
         </div>
         <canvas class="waveform-canvas" id="waveform" width="920" height="80"></canvas>
         <p class="demo-text" id="demoText"><span class="cursor"></span></p>
       </div>
-      <a href="#join" class="hero-cta">
-        Join the waitlist
+      <a href="#pricing" class="hero-cta">
+        jetzt 7 tage kostenlos testen
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </section>
 
     <div class="divider"></div>
 
-    <section class="details">
-      <p class="details-label fade-in">How it works</p>
-      <div class="details-grid">
-        <div class="detail-card glass fade-in">
-          <h3>Volume button shortcut</h3>
-          <p>Double-tap volume down from anywhere on your phone. No need to open the app first.</p>
+    <section class="style-switch fade-in">
+      <p class="section-label">maßgeschneidert</p>
+      <p class="style-switch-desc">du entscheidest, wie dein text aussieht. shush passt sich deinem schreibstil an — probier es aus:</p>
+      <div class="style-options">
+        <button class="style-opt active" data-style="casual">
+          <div class="style-opt-name"><span class="style-opt-dot"></span> entspannt</div>
+          <div class="style-opt-preview">alles klein, locker, mit emoticons :)</div>
+        </button>
+        <button class="style-opt" data-style="formal">
+          <div class="style-opt-name"><span class="style-opt-dot"></span> professionell</div>
+          <div class="style-opt-preview">Korrekte Rechtschreibung. Seriös formatiert.</div>
+        </button>
+        <button class="style-opt" data-style="messy">
+          <div class="style-opt-name"><span class="style-opt-dot"></span> handy-tipper</div>
+          <div class="style-opt-preview">so wie man halt Am handy tippt lol</div>
+        </button>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="steps fade-in">
+      <p class="section-label">wie es funktioniert</p>
+      <div class="steps-list">
+        <div class="step">
+          <span class="step-num">1.</span>
+          <div>
+            <h3>shortcut</h3>
+            <p>drück zweimal die lautstärketaste — egal in welcher app.</p>
+          </div>
         </div>
-        <div class="detail-card glass fade-in delay-1">
-          <h3>Paste anywhere</h3>
-          <p>Text goes straight to your clipboard. Paste into WhatsApp, Telegram, Notion, Google Docs — whatever you're using.</p>
+        <div class="step">
+          <span class="step-num">2.</span>
+          <div>
+            <h3>sprechen</h3>
+            <p>sag, was dir durch den kopf geht.</p>
+          </div>
         </div>
-        <div class="detail-card glass fade-in delay-2">
-          <h3>Multilingual</h3>
-          <p>Speak in any supported language. Hush! detects and transcribes without switching modes.</p>
-        </div>
-        <div class="detail-card glass fade-in delay-3">
-          <h3>Gamified tracking</h3>
-          <p>Streaks, word counts, weekly charts. A quiet way to see how much typing you've skipped.</p>
+        <div class="step">
+          <span class="step-num">3.</span>
+          <div>
+            <h3>fertig</h3>
+            <p>dein text ist in der zwischenablage. füg ihn ein, wo du willst.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <section class="numbers fade-in">
-      <div class="number-item">
-        <span class="number-val">12.7K</span>
-        <span class="number-label">words transcribed</span>
-      </div>
-      <div class="number-item">
-        <span class="number-val">438</span>
-        <span class="number-label">transcriptions</span>
-      </div>
-      <div class="number-item">
-        <span class="number-val">118</span>
-        <span class="number-label">minutes saved</span>
+    <section class="features">
+      <p class="section-label fade-in">vorteile</p>
+      <div class="features-grid">
+        <div class="feature-card glass fade-in delay-1">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <h3>überall einsatzbereit</h3>
+          <p>egal ob whatsapp, notion, google docs oder deine ideen-app. shush fügt den text dort ein, wo du ihn brauchst.</p>
+        </div>
+        <div class="feature-card glass fade-in delay-2">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>multilingual</h3>
+          <p>sprich einfach los. shush erkennt die sprache automatisch und transkribiert fehlerfrei.</p>
+        </div>
+        <div class="feature-card glass fade-in delay-3">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>barrierefrei gedacht</h3>
+          <p>wir wollen, dass jede stimme genutzt werden kann. einfachste bedienung ohne komplizierte menüs.</p>
+        </div>
+        <div class="feature-card glass fade-in delay-3">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>zeit sparen und tracken</h3>
+          <p>sieh in deinen stats, wie viele stunden tippen du dir diese woche gespart hast.</p>
+        </div>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <section class="pricing fade-in">
-      <h2>Pricing</h2>
-      <p class="pricing-desc">Try it free for 3 days. If you like it, pay once and keep it forever.</p>
-      <div class="price-card glass">
-        <div class="price-trial">
-          <span class="price-trial-label">Free trial</span>
-          <span class="price-trial-days">3 days</span>
-          <span class="price-detail">no card required</span>
+    <section class="testimonial fade-in">
+      <blockquote>„als journalist muss ich oft schnell gedanken festhalten. shush ist das erste tool, das meinen workflow nicht unterbricht, sondern beschleunigt."</blockquote>
+      <cite>— platzhalter: name, designer / journalist / entwickler</cite>
+      <div class="compat-logos">
+        <span>WhatsApp</span>
+        <span>Telegram</span>
+        <span>Notion</span>
+        <span>Google Docs</span>
+        <span>Slack</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="pricing fade-in" id="pricing">
+      <h2>wähle deinen plan</h2>
+      <div class="pricing-grid">
+        <div class="plan">
+          <span class="plan-name">starter</span>
+          <span class="plan-price">0 €</span>
+          <p class="plan-desc">7 tage volle funktion.<br>perfekt zum ausprobieren.</p>
+          <a href="#join" class="plan-cta">jetzt testen</a>
         </div>
-        <div class="price-divider"></div>
-        <div class="price-full">
-          <span class="price-full-label">Then</span>
-          <span class="price-amount">&euro;23</span>
-          <span class="price-detail">1 year</span>
+        <div class="plan">
+          <span class="plan-name">basic</span>
+          <span class="plan-price">27 € <span>/ jahr</span></span>
+          <p class="plan-desc">voller zugriff auf alle features.<br>preisgarantie für das erste jahr.</p>
+          <a href="#join" class="plan-cta primary">jetzt sichern</a>
+        </div>
+        <div class="plan">
+          <span class="plan-name">enterprise</span>
+          <span class="plan-price">individuell</span>
+          <p class="plan-desc">ab 10 nutzern.<br>maßgeschneiderte lösung.</p>
+          <a href="#join" class="plan-cta">sales call buchen</a>
         </div>
       </div>
-      <p class="price-note">No subscriptions. No upsells. No nonsense.</p>
+      <p class="pricing-note">hinweis: nach dem ersten jahr schauen wir gemeinsam, wie es weitergeht. wir garantieren den preis aktuell nur für die ersten 12 monate :)</p>
     </section>
 
     <div class="divider"></div>
 
     <section class="cta fade-in" id="join">
       <div class="cta-glow"></div>
-      <h2>Get <em>early access</em></h2>
-      <p>Hush! isn't on the Play Store yet. Join the group to get notified when it ships — and to share feedback.</p>
+      <h2>werde teil der <em>reise</em></h2>
+      <p>wir dokumentieren die entwicklung von shush transparent. du willst feedback geben oder zu den ersten usern gehören?</p>
       <div class="cta-buttons">
         <a href="https://chat.whatsapp.com/YOUR_GROUP_LINK" target="_blank" rel="noopener" class="btn btn-primary">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
-        </a>
-        <a href="https://t.me/YOUR_GROUP_LINK" target="_blank" rel="noopener" class="btn btn-secondary glass">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          Telegram
+          Community beitreten
         </a>
       </div>
     </section>
 
     <footer>
-      <span>Hush!</span>
+      <span>shush</span>
       <div class="footer-links">
         <a href="https://github.com/leonbubova/hush-app" target="_blank" rel="noopener">Source</a>
       </div>
@@ -498,10 +654,9 @@
     const H = canvas.height;
     const midY = H / 2;
     let speaking = false;
-    let energy = 0;       // current amplitude (smoothed)
-    let targetEnergy = 0; // where we're heading
+    let energy = 0;
+    let targetEnergy = 0;
 
-    // Generate a few layered sine waves for organic feel
     const layers = [
       { freq: 0.025, phase: 0, speed: 0.03, amp: 1.0 },
       { freq: 0.045, phase: 1.2, speed: 0.05, amp: 0.6 },
@@ -510,13 +665,10 @@
     ];
 
     function drawWaveform() {
-      // Smooth energy transitions
       energy += (targetEnergy - energy) * 0.06;
-
       ctx.clearRect(0, 0, W, H);
 
       if (energy < 0.005) {
-        // Idle: draw a thin flat line
         ctx.beginPath();
         ctx.moveTo(0, midY);
         ctx.lineTo(W, midY);
@@ -527,32 +679,24 @@
         return;
       }
 
-      // Advance phases
       layers.forEach(l => { l.phase += l.speed; });
 
-      // Build the waveform path
       const points = [];
       for (let x = 0; x <= W; x++) {
         let y = 0;
         layers.forEach(l => {
           y += Math.sin(x * l.freq + l.phase) * l.amp;
         });
-        // Envelope: taper at edges
         const env = Math.sin((x / W) * Math.PI);
         y *= env * energy * (midY * 0.7);
         points.push(midY + y);
       }
 
-      // Draw filled shape (mirrored)
       ctx.beginPath();
       ctx.moveTo(0, midY);
-      for (let x = 0; x <= W; x++) {
-        ctx.lineTo(x, points[x]);
-      }
+      for (let x = 0; x <= W; x++) ctx.lineTo(x, points[x]);
       ctx.lineTo(W, midY);
-      for (let x = W; x >= 0; x--) {
-        ctx.lineTo(x, midY - (points[x] - midY));
-      }
+      for (let x = W; x >= 0; x--) ctx.lineTo(x, midY - (points[x] - midY));
       ctx.closePath();
 
       const grad = ctx.createLinearGradient(0, 0, W, 0);
@@ -564,12 +708,9 @@
       ctx.fillStyle = grad;
       ctx.fill();
 
-      // Center stroke line
       ctx.beginPath();
       ctx.moveTo(0, midY);
-      for (let x = 0; x <= W; x++) {
-        ctx.lineTo(x, points[x]);
-      }
+      for (let x = 0; x <= W; x++) ctx.lineTo(x, points[x]);
       ctx.strokeStyle = 'rgba(196, 181, 253, 0.5)';
       ctx.lineWidth = 1.5;
       ctx.stroke();
@@ -577,7 +718,6 @@
       requestAnimationFrame(drawWaveform);
     }
 
-    // Simulate natural energy fluctuations while speaking
     let energyInterval;
     function startSpeaking() {
       speaking = true;
@@ -587,24 +727,24 @@
         targetEnergy = 0.3 + Math.random() * 0.7;
       }, 200);
       document.getElementById('demoDot').classList.add('active');
-      document.getElementById('demoStatus').textContent = 'Listening...';
+      document.getElementById('demoStatus').textContent = 'nimmt auf...';
     }
     function stopSpeaking() {
       speaking = false;
       clearInterval(energyInterval);
       targetEnergy = 0;
       document.getElementById('demoDot').classList.remove('active');
-      document.getElementById('demoStatus').textContent = 'Done';
+      document.getElementById('demoStatus').textContent = 'fertig';
     }
 
     drawWaveform();
 
     // --- Typing demo ---
     const phrases = [
-      "Hey, remind me to pick up groceries after work today.",
-      "Just had a great idea for the project — let me get this down before I forget.",
-      "Send a message to Sarah: running ten minutes late, sorry!",
-      "Note to self: check the API docs before Monday's meeting."
+      "hey, erinner mich daran nach der arbeit einkaufen zu gehen.",
+      "ich hatte gerade eine idee für das projekt — lass mich das kurz festhalten.",
+      "schick sarah eine nachricht: bin zehn minuten später, sorry!",
+      "notiz an mich: vor dem meeting am montag die api-docs checken."
     ];
 
     const demoText = document.getElementById('demoText');
@@ -635,8 +775,136 @@
       }, baseSpeed);
     }
 
-    // Start immediately (hero is always visible)
     setTimeout(runDemo, 1200);
+
+    // --- Style switcher ---
+    const styles = {
+      casual: {
+        heroTitle: 'deine gedanken direkt als text. <em>ohne tippen &lt;3</em>',
+        heroSub: 'shush nimmt auf, was du sagst, und macht daraus sofort fertigen text — direkt in deine zwischenablage. easy.',
+        heroCta: 'jetzt 7 tage kostenlos testen ✌️',
+        step1h: 'shortcut ⚡', step1p: 'drück zweimal die lautstärketaste — egal in welcher app.',
+        step2h: 'sprechen 🎙️', step2p: 'sag einfach, was dir durch den kopf geht.',
+        step3h: 'fertig ✅', step3p: 'dein text ist in der zwischenablage. füg ihn ein, wo du willst.',
+        feat1h: 'überall einsatzbereit 📱', feat1p: 'egal ob whatsapp, notion, google docs oder deine ideen-app — shush fügt den text dort ein, wo du ihn brauchst.',
+        feat2h: 'multilingual 🌍', feat2p: 'sprich einfach los. shush erkennt die sprache automatisch und transkribiert fehlerfrei.',
+        feat3h: 'barrierefrei gedacht 🤝', feat3p: 'wir wollen, dass jede stimme genutzt werden kann. einfachste bedienung ohne komplizierte menüs.',
+        feat4h: 'zeit sparen und tracken ⏱️', feat4p: 'sieh in deinen stats, wie viele stunden tippen du dir diese woche gespart hast.',
+        quote: '„als journalist muss ich oft schnell gedanken festhalten. shush ist das erste tool, das meinen workflow nicht unterbricht, sondern beschleunigt :)"',
+        pricingTitle: 'wähle deinen plan ✨',
+        ctaTitle: 'werde teil der <em>reise</em> 🚀',
+        ctaSub: 'wir dokumentieren die entwicklung von shush transparent. du willst feedback geben oder zu den ersten usern gehören?',
+        ctaBtn: 'community beitreten ✌️',
+        phrases: [
+          "hey, erinner mich daran nach der arbeit einkaufen zu gehen :)",
+          "ich hatte gerade eine mega idee für das projekt — lass mich das kurz festhalten ✨",
+          "schick sarah eine nachricht: bin zehn minuten später, sorry! 🙈",
+          "notiz an mich: vor dem meeting am montag die api-docs checken 📝"
+        ]
+      },
+      formal: {
+        heroTitle: 'Ihre Gedanken direkt als Text. <em>Ohne Tippen.</em>',
+        heroSub: 'Shush nimmt auf, was Sie sagen, und wandelt es sofort in perfekt formatierten Text um. Direkt in Ihre Zwischenablage.',
+        heroCta: 'Jetzt 7 Tage kostenlos testen',
+        step1h: 'Shortcut', step1p: 'Drücken Sie zweimal die Lautstärketaste — in jeder beliebigen Anwendung.',
+        step2h: 'Sprechen', step2p: 'Sagen Sie, was Ihnen durch den Kopf geht.',
+        step3h: 'Fertig', step3p: 'Ihr Text befindet sich in der Zwischenablage. Fügen Sie ihn dort ein, wo Sie ihn benötigen.',
+        feat1h: 'Universell einsetzbar', feat1p: 'Ob WhatsApp, Notion, Google Docs oder Ihre bevorzugte Notiz-App — Shush fügt den Text genau dort ein, wo Sie ihn benötigen.',
+        feat2h: 'Mehrsprachig', feat2p: 'Sprechen Sie einfach los. Shush erkennt die Sprache automatisch und transkribiert zuverlässig.',
+        feat3h: 'Barrierefreiheit im Fokus', feat3p: 'Wir möchten, dass jede Stimme genutzt werden kann. Intuitive Bedienung ohne komplexe Menüführung.',
+        feat4h: 'Zeitersparnis im Überblick', feat4p: 'Verfolgen Sie in Ihren Statistiken, wie viele Stunden Tipparbeit Sie sich in dieser Woche gespart haben.',
+        quote: '„Als Journalist muss ich häufig schnell Gedanken festhalten. Shush ist das erste Tool, das meinen Workflow nicht unterbricht, sondern merklich beschleunigt."',
+        pricingTitle: 'Wählen Sie Ihren Plan',
+        ctaTitle: 'Werden Sie Teil der <em>Reise</em>',
+        ctaSub: 'Wir dokumentieren die Entwicklung von Shush transparent. Möchten Sie Feedback geben oder zu den ersten Nutzern gehören?',
+        ctaBtn: 'Der Community beitreten',
+        phrases: [
+          "Bitte erinnern Sie mich daran, nach der Arbeit Lebensmittel einzukaufen.",
+          "Ich hatte soeben eine Idee für das Projekt — lassen Sie mich das kurz festhalten.",
+          "Senden Sie Sarah folgende Nachricht: Ich werde circa zehn Minuten später eintreffen.",
+          "Notiz an mich selbst: Vor dem Meeting am Montag die API-Dokumentation durchsehen."
+        ]
+      },
+      messy: {
+        heroTitle: 'Deine gedanken direkt als text. <em>ohne Tippen</em>',
+        heroSub: 'shush nimmt auf was du sagst und wandelt es sofort in text um. direkt in deine Zwischenablage',
+        heroCta: 'jetzt 7 tage koatenlos testen',
+        step1h: 'Shortcut', step1p: 'drück zweimal die lautstärketaste egal in welcher app',
+        step2h: 'sprechen', step2p: 'sag was dir durch den Kopf geht',
+        step3h: 'Fertig', step3p: 'dein text ist in der zwischenablage. füg ihn ein wo du willst',
+        feat1h: 'überall einsetzbar', feat1p: 'egal ob Whatsapp Notion google docs oder deine ideen app. shush fügt den text dort ein wo du ihn brauchst',
+        feat2h: 'multilingual', feat2p: 'sprich einfach los. shush erkennt die sprache automatisch und transkribiert fhelerfrei',
+        feat3h: 'barrierefrei gedacht', feat3p: 'wir wollen dass jede stimme genuzt werden kann. einfachste bedienung ohne komplizierte Menüs',
+        feat4h: 'Zeit sparen und tracken', feat4p: 'sieh in deinen stats wie viele stunden tippen du dir diese Woche gespart hast',
+        quote: '„als Journalist muss ich oft schnell gedanken festhalten. shush ist das erste tool das meinen Workflow nicht unterbricht sondern beschleunigt"',
+        pricingTitle: 'wähle deinen Plan',
+        ctaTitle: 'werde teil der <em>Reise</em>',
+        ctaSub: 'wir dokumentieren die entwicklung von shush transparent. du willst feedback geben oder zu den ersten Usern gehören?',
+        ctaBtn: 'community beitreten',
+        phrases: [
+          "hey erinner mich daran nach der arbeit einkaufen zu gehen",
+          "ich hatte gerade ne Idee für das projekt lass mich das kurz festhalten",
+          "schick sarah ne nachricht bin zehn minuten Später sorry",
+          "Notiz an mich vor dem meeting am montag die api docs checken"
+        ]
+      }
+    };
+
+    let currentStyle = 'casual';
+
+    function applyStyle(style) {
+      currentStyle = style;
+      const s = styles[style];
+
+      // Update buttons
+      document.querySelectorAll('.style-opt').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.style === style);
+      });
+
+      // Hero
+      document.querySelector('.hero h1').innerHTML = s.heroTitle;
+      document.querySelector('.hero-sub').textContent = s.heroSub;
+      document.querySelector('.hero-cta').innerHTML = s.heroCta + ' <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+
+      // Steps
+      const steps = document.querySelectorAll('.step');
+      steps[0].querySelector('h3').textContent = s.step1h;
+      steps[0].querySelector('p').textContent = s.step1p;
+      steps[1].querySelector('h3').textContent = s.step2h;
+      steps[1].querySelector('p').textContent = s.step2p;
+      steps[2].querySelector('h3').textContent = s.step3h;
+      steps[2].querySelector('p').textContent = s.step3p;
+
+      // Features
+      const feats = document.querySelectorAll('.feature-card');
+      feats[0].querySelector('h3').textContent = s.feat1h;
+      feats[0].querySelector('p').textContent = s.feat1p;
+      feats[1].querySelector('h3').textContent = s.feat2h;
+      feats[1].querySelector('p').textContent = s.feat2p;
+      feats[2].querySelector('h3').textContent = s.feat3h;
+      feats[2].querySelector('p').textContent = s.feat3p;
+      feats[3].querySelector('h3').textContent = s.feat4h;
+      feats[3].querySelector('p').textContent = s.feat4p;
+
+      // Testimonial
+      document.querySelector('.testimonial blockquote').textContent = s.quote;
+
+      // Pricing
+      document.querySelector('.pricing h2').textContent = s.pricingTitle;
+
+      // CTA
+      document.querySelector('.cta h2').innerHTML = s.ctaTitle;
+      document.querySelector('.cta p').textContent = s.ctaSub;
+      document.querySelector('.cta .btn-primary').innerHTML = document.querySelector('.cta .btn-primary svg').outerHTML + ' ' + s.ctaBtn;
+
+      // Update demo phrases
+      phrases.length = 0;
+      phrases.push(...s.phrases);
+    }
+
+    document.querySelectorAll('.style-opt').forEach(btn => {
+      btn.addEventListener('click', () => applyStyle(btn.dataset.style));
+    });
   </script>
 </body>
 </html>
