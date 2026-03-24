@@ -235,11 +235,104 @@ function runDemo() {
 setTimeout(runDemo, 1200);
 
 // --- Style switcher ---
-document.querySelectorAll('.style-opt').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.style-opt').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+const htmlKeys = new Set(['heroTitle', 'ctaTitle', 'eaTitle', 'plan1Desc', 'plan2Desc', 'plan3Desc', 'plan2Price']);
+
+// Save casual text from HTML as source of truth
+const casualStyle = {};
+document.querySelectorAll('[data-key]').forEach(el => {
+  casualStyle[el.dataset.key] = htmlKeys.has(el.dataset.key) ? el.innerHTML : el.textContent;
+});
+
+const styles = {
+  formal: {
+    heroTitle: 'Deine Gedanken direkt als Text. <em>Ohne Tippen.</em>',
+    heroSub: 'Shush nimmt auf, was Sie sagen, und wandelt es in perfekt formatierten Text um. Direkt in Ihren bevorzugten Apps.',
+    heroCta: 'Jetzt 3 Tage kostenlos testen',
+    styleLabel: 'Maßgeschneidert',
+    styleDesc: 'Sie entscheiden, wie Ihr Text aussieht. Shush passt sich Ihrem Schreibstil an. Probieren Sie es aus:',
+    step1h: 'Doppeltippen', step1p: 'Drücken Sie zweimal die Lautstärketaste — in jeder beliebigen Anwendung.',
+    step2h: 'Sprechen', step2p: 'Sagen Sie, was Ihnen durch den Kopf geht.',
+    step3h: 'Erneut Drücken', step3p: 'Ihr Text wird automatisch eingefügt. Genau dort, wo Sie ihn benötigen.',
+    feat1h: 'Universell einsetzbar', feat1p: 'Ob WhatsApp, Notion, Google Docs oder Ihre bevorzugte Notiz-App — Shush fügt den Text genau dort ein, wo Sie ihn brauchen.',
+    feat2h: 'Mehrsprachig', feat2p: 'Sprechen Sie einfach los. Shush erkennt die Sprache automatisch und transkribiert zuverlässig. Auch Deutsch und Englisch gemischt.',
+    feat3h: 'Barrierefreiheit im Fokus', feat3p: 'Wir möchten, dass jede Stimme genutzt werden kann. Intuitive Bedienung ohne komplexe Menüführung.',
+    feat4h: 'Zeitersparnis im Überblick', feat4p: 'Verfolgen Sie in Ihren Statistiken, wie viele Stunden Tipparbeit Sie sich diese Woche gespart haben.',
+    quote: '„Als Journalist muss ich häufig schnell Gedanken festhalten. Shush ist das erste Tool, das meinen Workflow nicht unterbricht, sondern merklich beschleunigt."',
+    quoteCite: '— Ein sehr beschäftigter Mensch',
+    pricingTitle: 'Wählen Sie Ihren Plan',
+    plan1Name: 'Reinschnuppern', plan1Price: '0 €', plan1Desc: '3 Tage volle Funktion.<br>Perfekt zum Ausprobieren.', plan1Cta: 'Kostenlos testen',
+    plan2Name: 'Shush', plan2Price: '27 € <span>/ Jahr</span>', plan2Desc: 'Voller Zugriff auf alle Features.<br>Preisgarantie für das erste Jahr.', plan2Cta: 'Jetzt sichern',
+    plan3Name: 'Für Sonderwünsche', plan3Price: 'Individuell', plan3Desc: 'Ihnen fehlt noch etwas an Shush?<br>Ein Feature, das Sie unbedingt benötigen?', plan3Cta: 'Kontakt aufnehmen',
+    pricingNote: 'Hinweis: Nach dem ersten Jahr evaluieren wir gemeinsam die Konditionen. Der aktuelle Preis gilt garantiert für die ersten 12 Monate.',
+    eaLabel: 'Early Access',
+    eaTitle: 'Shush ist bereits <em>verfügbar</em>',
+    eaDesc1: 'Die App befindet sich derzeit im Freigabeprozess für den App Store. Sie können Shush jedoch bereits jetzt nutzen. Als Early-Access-Nutzer erhalten Sie eine kostenlose Testphase auf unbestimmte Zeit mit bis zu 1.000 Wörtern alle 3 Stunden.',
+    eaDesc2: '1.000 Wörter entsprechen etwa 5 WhatsApp-Verläufen, 3 Notion-Seiten oder einem ausführlichen Meeting-Protokoll.',
+    ea1h: 'APK herunterladen', ea1p: 'Am einfachsten: Öffnen Sie diese Seite direkt auf Ihrem Android-Gerät (z.B. den Link per WhatsApp oder Signal an sich selbst senden). Tippen Sie anschließend auf den Download-Button.',
+    ea2h: 'Installation erlauben', ea2p: 'Ihr Gerät fragt, ob Sie Apps aus unbekannten Quellen installieren möchten. Tippen Sie auf „Einstellungen" und aktivieren Sie die Erlaubnis für Ihren Browser.',
+    ea3h: 'App installieren', ea3p: 'Öffnen Sie die heruntergeladene Datei und tippen Sie auf „Installieren". Öffnen Sie Shush nach der Installation.',
+    ea4h: 'Mikrofon erlauben', ea4p: 'Android fragt beim ersten Start automatisch — tippen Sie auf „Erlauben".',
+    ea5h: 'Benachrichtigungen erlauben', ea5p: 'Damit Shush Ihnen den Aufnahmestatus anzeigen kann. Auch hier „Erlauben" wählen.',
+    ea6h: 'Bedienungshilfen aktivieren', ea6p: 'Damit Shush Text in andere Apps einfügen kann. Sie werden zu den Android-Einstellungen weitergeleitet — finden Sie Shush in der Liste, aktivieren Sie den Schalter und bestätigen Sie.',
+    ea7h: 'Loslegen', ea7p: 'Drücken Sie zweimal die Leiser-Taste, sprechen Sie, und drücken Sie erneut zweimal. Ihr Text wird automatisch in das aktive Textfeld eingefügt.',
+    ctaTitle: 'Werden Sie Teil der <em>Reise</em>',
+    ctaSub: 'Wir dokumentieren die Entwicklung von Shush transparent. Möchten Sie Feedback geben oder zu den ersten Nutzern gehören?',
+  },
+  messy: {
+    heroTitle: 'deine gedanken direkt als text. <em>ohne Tippen</em>',
+    heroSub: 'shush nimmt auf was du sagst und macht daraus text. direkt in deine apps halt',
+    heroCta: 'jetzt 3 tage koatenlos testen',
+    styleLabel: 'maßgeschneidert',
+    styleDesc: 'du entscheidest wie dein text aussieht. shush passt sich deinem schreibstil an probier es aus:',
+    step1h: 'drücken', step1p: 'zweimal die lautstärketaste drücken egal in welcher app',
+    step2h: 'reden', step2p: 'sag was dir durch den Kopf geht',
+    step3h: 'nochmal drücken', step3p: 'dein text wird eingefügt genau da wo du ihn brauchst',
+    feat1h: 'überall einsatzbereit', feat1p: 'egal ob Whatsapp notion google docs oder deine notiz app shush fügt den text dort ein wo du ihn brauchst',
+    feat2h: 'multilingual', feat2p: 'sprich einfach los. shush erkennt die sprache automatisch und transkribiert fhelerfrei auch deutsch und englisch gemischt',
+    feat3h: 'barrierefrei gedacht', feat3p: 'wir wollen dass jede stimme genuzt werden kann einfachste bedienung ohne komplizierte Menüs',
+    feat4h: 'Zeit sparen und tracken', feat4p: 'sieh in deinen stats wie viele stunden tippen du dir diese Woche gespart hast',
+    quote: '„als Journalist muss ich oft schnell gedanken festhalten. shush ist das erste tool das meinen Workflow nicht unterbricht sondern beschleunigt"',
+    quoteCite: '— ein sehr beschäftigter Mensch',
+    pricingTitle: 'wähle deinen Plan',
+    plan1Name: 'reinschnuppern', plan1Price: '0 €', plan1Desc: '3 tage volle funktion.<br>perfekt zum Ausprobieren.', plan1Cta: 'gratis testen',
+    plan2Name: 'shush', plan2Price: '27 € <span>/ jahr</span>', plan2Desc: 'voller zugriff auf alle features.<br>preisgarantie fürs erste Jahr.', plan2Cta: 'jetzt sichern',
+    plan3Name: 'für extrawürste', plan3Price: 'individuell', plan3Desc: 'dir fehlt noch was an shush?<br>ein feature das du unbedingt brauchst?', plan3Cta: 'lass uns reden',
+    pricingNote: 'hinweis: nach dem ersten jahr schauen wir gemeinsam wie es weitergeht. wir garantieren den Preis aktuell nur für die ersten 12 monate',
+    eaLabel: 'early access',
+    eaTitle: 'shush ist bereits <em>verfügbar</em>',
+    eaDesc1: 'die app ist noch nicht im app store (jaja der approval prozess) aber du kannst sie jetzt schon nutzen. als early access user bekommst du eine kostenlose testphase auf unbestimmte Zeit mit bis zu 1.000 wörtern alle 3 stunden',
+    eaDesc2: '1.000 wörter? das sind 5 whatsapp verläufe 3 notion seiten oder die komplette gedankenwelt die du hattest während du so getan hast als würdest du zuhören',
+    ea1h: 'apk runterladen', ea1p: 'am einfachsten: öffne die seite auf deinem handy (zb link an dich selbst per whatsapp oder signal schicken). dann auf den download button tippen',
+    ea2h: 'installation erlauben', ea2p: 'dein handy fragt ob du apps aus unbekannten quellen installieren willst. auf einstellungen tippen und erlaubnis aktivieren',
+    ea3h: 'app installieren', ea3p: 'die datei öffnen und auf installieren tippen. danach shush öffnen',
+    ea4h: 'mikrofon erlauben', ea4p: 'android fragt automatisch einfach erlauben tippen',
+    ea5h: 'benachrichtigungen erlauben', ea5p: 'damit shush dir den status anzeigen kann. auch hier einfach erlauben',
+    ea6h: 'bedienungshilfen aktivieren', ea6p: 'damit shush text in andere apps einfügen kann. du wirst zu den einstellungen weitergeleitet shush in der liste finden schalter aktivieren bestätigen',
+    ea7h: 'loslegen', ea7p: 'drück 2 mal die leiser taste sprich los und drück noch 2 mal. dein text wird automatisch ins aktive textfeld eingefügt in jeder deiner apps',
+    ctaTitle: 'werde teil der <em>Reise</em>',
+    ctaSub: 'wir dokumentieren die entwicklung von shush transparent. du willst feedback geben oder zu den ersten Usern gehören?',
+  }
+};
+
+function applyStyle(style) {
+  document.querySelectorAll('.style-opt').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.style === style);
   });
+
+  const source = style === 'casual' ? casualStyle : styles[style];
+  if (!source) return;
+
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (source[key] !== undefined) {
+      if (htmlKeys.has(key)) el.innerHTML = source[key];
+      else el.textContent = source[key];
+    }
+  });
+}
+
+document.querySelectorAll('.style-opt').forEach(btn => {
+  btn.addEventListener('click', () => applyStyle(btn.dataset.style));
 });
 
 // --- Waitlist form ---
