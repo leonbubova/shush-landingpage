@@ -195,7 +195,7 @@ nav.scrolled .nav-inner {
 }
 .demo-text {
   font-size: 0.9rem; color: var(--text-2); font-weight: 300;
-  line-height: 1.65; min-height: 3.3em;
+  line-height: 1.65; height: 4.95em; overflow: hidden;
 }
 .demo-text .cursor {
   display: inline-block; width: 1.5px; height: 0.95em;
