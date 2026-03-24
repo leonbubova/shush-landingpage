@@ -222,6 +222,34 @@ document.getElementById('waitlistForm').addEventListener('submit', async (e) => 
   btn.innerHTML = 'dabei sein <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
 });
 
+// --- Legal modals (content rendered via JS, not in HTML source) ---
+const legalContent = {
+  impressum: () => `<h3>Impressum</h3>
+    <p>${['Leon',' Bubova'].join('')}<br>${['Richard-Wagner-','Str. 51'].join('')}<br>${['50674',' Köln'].join('')}</p>
+    <p>Kontakt: über das Formular auf dieser Seite</p>`,
+  datenschutz: () => `<h3>Datenschutz</h3>
+    <p>diese seite setzt keine cookies und nutzt kein tracking. es werden keine analyse-tools oder werbedienste eingebunden.</p>
+    <p>wenn du deine email-adresse über das formular einträgst, wird diese ausschließlich gespeichert, um dich zu informieren, wenn shush verfügbar ist. deine email wird nicht an dritte weitergegeben. du kannst jederzeit die löschung deiner daten verlangen — schreib uns einfach über das formular.</p>
+    <p>die seite wird über GitHub Pages gehostet. dabei können serverseitig technisch notwendige zugriffsdaten (z.b. IP-adresse) verarbeitet werden. details dazu findest du in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Policy</a>.</p>`
+};
+
+const overlay = document.getElementById('legalOverlay');
+const legalEl = document.getElementById('legalContent');
+
+document.querySelectorAll('[data-legal]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const key = link.dataset.legal;
+    if (legalContent[key]) {
+      legalEl.innerHTML = legalContent[key]();
+      overlay.classList.add('visible');
+    }
+  });
+});
+
+document.getElementById('legalClose').addEventListener('click', () => overlay.classList.remove('visible'));
+overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('visible'); });
+
 // --- LinkedIn (obfuscated) ---
 document.querySelector('.li-link').addEventListener('click', () => {
   const u = ['https://www.','linked','in.com/in/',null].filter(Boolean).join('');

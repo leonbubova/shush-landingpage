@@ -269,27 +269,21 @@
       </div>
       <div class="footer-bottom">
         <div class="footer-links">
-          <a href="#impressum">Impressum</a>
-          <a href="#datenschutz">Datenschutz</a>
+          <a href="#" data-legal="impressum">Impressum</a>
+          <a href="#" data-legal="datenschutz">Datenschutz</a>
           <a class="li-link" data-li="leonbubova">LinkedIn</a>
         </div>
         <span class="footer-copy">© 2026 shush</span>
       </div>
     </footer>
 
-    <section class="legal" id="impressum">
-      <h3>Impressum</h3>
-      <p>Leon Bubova<br>Richard-Wagner-Str. 51<br>50674 Köln</p>
-      <p>Kontakt: über das Formular auf dieser Seite</p>
-    </section>
+  </div>
 
-    <section class="legal" id="datenschutz">
-      <h3>Datenschutz</h3>
-      <p>diese seite setzt keine cookies und nutzt kein tracking. es werden keine analyse-tools oder werbedienste eingebunden.</p>
-      <p>wenn du deine email-adresse über das formular einträgst, wird diese ausschließlich gespeichert, um dich zu informieren, wenn shush verfügbar ist. deine email wird nicht an dritte weitergegeben. du kannst jederzeit die löschung deiner daten verlangen — schreib uns einfach über das formular.</p>
-      <p>die seite wird über GitHub Pages gehostet. dabei können serverseitig technisch notwendige zugriffsdaten (z.b. IP-adresse) verarbeitet werden. details dazu findest du in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Policy</a>.</p>
-    </section>
-
+  <div class="legal-overlay" id="legalOverlay">
+    <div class="legal-modal">
+      <button class="legal-close" id="legalClose">&times;</button>
+      <div id="legalContent"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>

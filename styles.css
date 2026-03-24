@@ -480,19 +480,35 @@ footer a, footer .li-link {
 footer a:hover, footer .li-link:hover { color: var(--text-2); }
 .footer-links { display: flex; gap: 1.5rem; }
 
-/* Legal */
-.legal {
-  padding: 2.5rem 0; border-top: 1px solid var(--border);
+/* Legal modal */
+.legal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 300;
+  background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  align-items: center; justify-content: center; padding: 1.5rem;
 }
-.legal h3 {
+.legal-overlay.visible { display: flex; }
+.legal-modal {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem; max-width: 520px; width: 100%;
+  max-height: 80vh; overflow-y: auto; position: relative;
+}
+.legal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; color: var(--text-3);
+  font-size: 1.25rem; cursor: pointer; padding: 0.25rem 0.5rem;
+  transition: color 0.2s;
+}
+.legal-close:hover { color: var(--text); }
+.legal-modal h3 {
   font-size: 0.9rem; font-weight: 500; margin-bottom: 1rem;
 }
-.legal p {
+.legal-modal p {
   font-size: 0.8rem; color: var(--text-2); font-weight: 300;
-  line-height: 1.65; margin-bottom: 0.75rem; max-width: 520px;
+  line-height: 1.65; margin-bottom: 0.75rem;
 }
-.legal a { color: var(--accent); text-decoration: none; }
-.legal a:hover { opacity: 0.7; }
+.legal-modal a { color: var(--accent); text-decoration: none; }
+.legal-modal a:hover { opacity: 0.7; }
 
 /* Editor mode */
 .edit-bar {
