@@ -1,6 +1,6 @@
 # shush — deine stimme, dein text
 
-**[leonbubova.github.io/shush-landingpage](https://leonbubova.github.io/shush-landingpage/)**
+**[shush.love](https://shush.love)**
 
 shush nimmt auf, was du sagst, und macht daraus fertigen text. direkt in deine lieblings apps.
 
