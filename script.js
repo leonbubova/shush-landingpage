@@ -175,12 +175,18 @@ const phrases = [
 
 // Typing sound (Web Audio API — mechanical keyboard click)
 let audioCtx;
+let soundMuted = false;
 document.addEventListener('click', () => {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 }, { once: true });
 
+document.getElementById('muteBtn').addEventListener('click', () => {
+  soundMuted = !soundMuted;
+  document.getElementById('muteBtn').textContent = soundMuted ? '🔇' : '🔊';
+});
+
 function playTypeClick() {
-  if (!audioCtx) return;
+  if (!audioCtx || soundMuted) return;
   const t = audioCtx.currentTime;
 
   // Thump — low sine with fast decay
