@@ -109,10 +109,24 @@ drawWaveform();
 
 // --- Typing demo ---
 const phrases = [
-  "hey, erinner mich daran nach der arbeit einkaufen zu gehen.",
-  "ich hatte gerade eine idee für das projekt — lass mich das kurz festhalten.",
-  "schick sarah eine nachricht: bin zehn minuten später, sorry!",
-  "notiz an mich: vor dem meeting am montag die api-docs checken."
+// sympathisch / relatable
+  "ich weiß ich sollte das nicht vergessen aber ich vergesse es sowieso also: zahnarzt termin morgen.",
+  "warte kurz ich hab gerade eine geniale idee bevor sie wieder weg ist.",
+  "notiz an mich selbst: das ding das ich heute morgen im halbschlaf gedacht hab war eigentlich gut.",
+
+  // witzig / selbstironisch
+  "to do: endlich diesen einen tab schließen den ich seit drei wochen offen habe.",
+  "erinnerung an mich selbst: du wolltest 'kurz' nachschauen und es sind zwei stunden geworden.",
+  "schreib kevin: ja ich hab deine nachricht gesehen, nein ich hab nicht geantwortet, sorry.",
+
+  // produktiv / flow
+  "feedback für den client: version zwei gefällt mir besser, aber absatz drei muss weg.",
+  "schnelle idee für den pitch: statt folie 4 einfach ein gif von nem keks. oder einem krümel oder so",
+
+  // provokativ / edge
+  "ich hab recht gehabt und möchte das jetzt irgendwo festhalten bevor ich höflich tue, also es war folgenderm...",
+  "erinnerung: du brauchst das nicht kaufen. du brauchst das nicht kaufen. du brauchst...",
+  "reminder an mich selbst: das playstore approval endlich durchbekommen *daumendrück*"
 ];
 
 const demoText = document.getElementById('demoText');
