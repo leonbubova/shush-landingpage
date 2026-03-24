@@ -425,7 +425,7 @@ document.querySelectorAll('h2').forEach(h => {
 const progressBar = document.createElement('div');
 Object.assign(progressBar.style, {
   position: 'fixed', top: '0', left: '0', height: '2px', width: '0',
-  background: 'linear-gradient(90deg, #c4b5fd, #8b5cf6)', zIndex: '9999',
+  background: 'rgba(196, 181, 253, 0.25)', zIndex: '9999',
   transition: 'width 0.1s', pointerEvents: 'none',
 });
 document.body.appendChild(progressBar);
