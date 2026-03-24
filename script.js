@@ -174,9 +174,12 @@ document.getElementById('waitlistForm').addEventListener('submit', async (e) => 
   try {
     const res = await fetch(SHEET_URL, {
       method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json();
+    // no-cors returns opaque response, so we assume success
+    const data = { result: 'ok' };
 
     if (data.result === 'ok') {
       feedback.textContent = 'du bist dabei!';
