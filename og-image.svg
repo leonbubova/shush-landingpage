@@ -24,10 +24,10 @@
   <path d="M300,220 Q330,220 345,210 Q360,200 375,195 Q390,190 405,200 Q420,210 435,218 Q450,225 465,230 Q480,235 495,225 Q510,215 525,198 Q540,180 555,185 Q570,190 585,205 Q600,220 615,230 Q630,240 645,235 Q660,230 675,218 Q690,205 705,195 Q720,185 735,190 Q750,195 765,205 Q780,215 795,222 Q810,228 825,225 Q840,222 855,218 Q870,214 885,217 Q892,219 900,220" fill="none" stroke="#c4b5fd" stroke-width="1.5" opacity="0.5"/>
 
   <!-- Demo text -->
-  <text x="300" y="320" font-family="Inter, -apple-system, sans-serif" font-size="26" font-weight="300" fill="rgba(220,220,222,0.65)" line-height="1.6">
-    <tspan x="300" dy="0">schreib kevin: ja ich hab deine nachricht</tspan>
-    <tspan x="300" dy="42">gesehen, nein ich hab nicht geantwortet,</tspan>
-    <tspan x="300" dy="42">sorry.</tspan>
+  <text x="600" y="320" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="26" font-weight="300" fill="rgba(220,220,222,0.65)">
+    <tspan x="600" dy="0">schreib kevin: ja ich hab deine nachricht</tspan>
+    <tspan x="600" dy="42">gesehen, nein ich hab nicht geantwortet,</tspan>
+    <tspan x="600" dy="42">sorry.</tspan>
   </text>
 
   <!-- Branding -->
