@@ -175,14 +175,17 @@ const phrases = [
 
 // Typing sound (Web Audio API — mechanical keyboard click)
 let audioCtx;
-let soundMuted = false;
-document.addEventListener('click', () => {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-}, { once: true });
+let soundMuted = true;
+
+function updateMuteIcon() {
+  document.getElementById('muteIcon').style.display = soundMuted ? '' : 'none';
+  document.getElementById('unmuteIcon').style.display = soundMuted ? 'none' : '';
+}
 
 document.getElementById('muteBtn').addEventListener('click', () => {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   soundMuted = !soundMuted;
-  document.getElementById('muteBtn').textContent = soundMuted ? '🔇' : '🔊';
+  updateMuteIcon();
 });
 
 function playTypeClick() {
