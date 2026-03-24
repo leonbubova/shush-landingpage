@@ -443,6 +443,15 @@ nav.scrolled .nav-inner {
 .cta-feedback.success { color: var(--accent); }
 .cta-feedback.error { color: #e57373; }
 
+/* Hidden message */
+.hidden-message {
+  color: transparent; font-size: 0.7rem; user-select: all;
+  display: block; margin-top: 0.5rem;
+}
+.hidden-message::selection {
+  color: var(--accent); background: rgba(196, 181, 253, 0.2);
+}
+
 /* Buttons */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
