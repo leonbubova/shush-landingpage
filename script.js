@@ -384,27 +384,22 @@ console.log(
   'font-size: 14px; color: #888; font-family: monospace;'
 );
 
-// 3. Secret word "shush" → ripple
-let secretBuffer = '';
+// 3. Ripple on any keypress
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
-  secretBuffer += e.key.toLowerCase();
-  if (secretBuffer.includes('shush')) {
-    secretBuffer = '';
-    const ripple = document.createElement('div');
-    Object.assign(ripple.style, {
-      position: 'fixed', top: '50%', left: '50%',
-      width: '0', height: '0', borderRadius: '50%',
-      background: 'radial-gradient(circle, rgba(196,181,253,0.3), transparent)',
-      transform: 'translate(-50%,-50%)', pointerEvents: 'none', zIndex: '9999',
-    });
-    document.body.appendChild(ripple);
-    ripple.animate([
-      { width: '0px', height: '0px', opacity: 1 },
-      { width: '200vmax', height: '200vmax', opacity: 0 }
-    ], { duration: 1200, easing: 'ease-out' }).onfinish = () => ripple.remove();
-  }
-  if (secretBuffer.length > 20) secretBuffer = secretBuffer.slice(-10);
+  if (e.key.length !== 1) return;
+  const ripple = document.createElement('div');
+  Object.assign(ripple.style, {
+    position: 'fixed', top: '50%', left: '50%',
+    width: '0', height: '0', borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(196,181,253,0.15), transparent)',
+    transform: 'translate(-50%,-50%)', pointerEvents: 'none', zIndex: '9999',
+  });
+  document.body.appendChild(ripple);
+  ripple.animate([
+    { width: '0px', height: '0px', opacity: 1 },
+    { width: '120vmax', height: '120vmax', opacity: 0 }
+  ], { duration: 900, easing: 'ease-out' }).onfinish = () => ripple.remove();
 });
 
 // 4. Text scramble on h2 hover
