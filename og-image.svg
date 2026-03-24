@@ -2,15 +2,15 @@
   <rect width="1200" height="630" fill="#121215"/>
 
   <!-- Card -->
-  <rect x="250" y="80" width="700" height="470" rx="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5"/>
+  <rect x="60" y="40" width="1080" height="550" rx="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5"/>
 
   <!-- Dot + Status -->
-  <circle cx="310" cy="145" r="5" fill="#c4b5fd" opacity="1"/>
-  <text x="330" y="150" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="400" fill="rgba(220,220,222,0.45)" letter-spacing="0.1em">NIMMT AUF...</text>
+  <circle cx="120" cy="100" r="6" fill="#c4b5fd" opacity="1"/>
+  <text x="142" y="105" font-family="Inter, -apple-system, sans-serif" font-size="16" font-weight="400" fill="rgba(220,220,222,0.45)" letter-spacing="0.1em">NIMMT AUF...</text>
 
   <!-- Waveform active -->
   <defs>
-    <linearGradient id="wg" x1="300" y1="0" x2="900" y2="0" gradientUnits="userSpaceOnUse">
+    <linearGradient id="wg" x1="100" y1="0" x2="1100" y2="0" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#c4b5fd" stop-opacity="0"/>
       <stop offset="0.2" stop-color="#c4b5fd" stop-opacity="0.25"/>
       <stop offset="0.5" stop-color="#c4b5fd" stop-opacity="0.4"/>
@@ -19,17 +19,17 @@
     </linearGradient>
   </defs>
   <!-- Waveform fill -->
-  <path d="M300,220 Q330,220 345,210 Q360,200 375,195 Q390,190 405,200 Q420,210 435,218 Q450,225 465,230 Q480,235 495,225 Q510,215 525,198 Q540,180 555,185 Q570,190 585,205 Q600,220 615,230 Q630,240 645,235 Q660,230 675,218 Q690,205 705,195 Q720,185 735,190 Q750,195 765,205 Q780,215 795,222 Q810,228 825,225 Q840,222 855,218 Q870,214 885,217 Q892,219 900,220 L900,220 Q892,221 885,223 Q870,226 855,222 Q840,218 825,215 Q810,212 795,218 Q780,225 765,235 Q750,245 735,250 Q720,255 705,245 Q690,235 675,222 Q660,210 645,205 Q630,200 615,210 Q600,220 585,235 Q570,250 555,255 Q540,260 525,242 Q510,225 495,215 Q480,205 465,210 Q450,215 435,222 Q420,230 405,240 Q390,250 375,245 Q360,240 345,230 Q330,220 300,220 Z" fill="url(#wg)" opacity="0.6"/>
+  <path d="M100,240 Q150,240 180,225 Q210,210 240,200 Q270,190 300,205 Q330,220 360,235 Q390,250 420,255 Q450,260 480,245 Q510,230 540,208 Q570,185 600,190 Q630,195 660,215 Q690,235 720,250 Q750,265 780,258 Q810,250 840,235 Q870,220 900,208 Q930,195 960,200 Q990,205 1020,218 Q1050,230 1070,238 Q1085,242 1100,240 L1100,240 Q1085,238 1070,242 Q1050,250 1020,262 Q990,275 960,280 Q930,285 900,272 Q870,260 840,245 Q810,230 780,222 Q750,215 720,230 Q690,245 660,265 Q630,285 600,290 Q570,295 540,272 Q510,250 480,235 Q450,220 420,225 Q390,230 360,245 Q330,260 300,275 Q270,290 240,280 Q210,270 180,255 Q150,240 100,240 Z" fill="url(#wg)" opacity="0.6"/>
   <!-- Waveform top line -->
-  <path d="M300,220 Q330,220 345,210 Q360,200 375,195 Q390,190 405,200 Q420,210 435,218 Q450,225 465,230 Q480,235 495,225 Q510,215 525,198 Q540,180 555,185 Q570,190 585,205 Q600,220 615,230 Q630,240 645,235 Q660,230 675,218 Q690,205 705,195 Q720,185 735,190 Q750,195 765,205 Q780,215 795,222 Q810,228 825,225 Q840,222 855,218 Q870,214 885,217 Q892,219 900,220" fill="none" stroke="#c4b5fd" stroke-width="1.5" opacity="0.5"/>
+  <path d="M100,240 Q150,240 180,225 Q210,210 240,200 Q270,190 300,205 Q330,220 360,235 Q390,250 420,255 Q450,260 480,245 Q510,230 540,208 Q570,185 600,190 Q630,195 660,215 Q690,235 720,250 Q750,265 780,258 Q810,250 840,235 Q870,220 900,208 Q930,195 960,200 Q990,205 1020,218 Q1050,230 1070,238 Q1085,242 1100,240" fill="none" stroke="#c4b5fd" stroke-width="2" opacity="0.5"/>
 
   <!-- Demo text -->
-  <text x="600" y="320" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="26" font-weight="300" fill="rgba(220,220,222,0.65)">
+  <text x="600" y="390" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="30" font-weight="300" fill="rgba(220,220,222,0.65)">
     <tspan x="600" dy="0">schreib kevin: ja ich hab deine nachricht</tspan>
-    <tspan x="600" dy="42">gesehen, nein ich hab nicht geantwortet,</tspan>
-    <tspan x="600" dy="42">sorry.</tspan>
+    <tspan x="600" dy="48">gesehen, nein ich hab nicht geantwortet,</tspan>
+    <tspan x="600" dy="48">sorry.</tspan>
   </text>
 
   <!-- Branding -->
-  <text x="600" y="590" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-style="italic" font-weight="400" fill="rgba(220,220,222,0.25)">shush.love</text>
+  <text x="600" y="570" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-style="italic" font-weight="400" fill="rgba(220,220,222,0.25)">shush.love</text>
 </svg>
