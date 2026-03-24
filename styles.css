@@ -312,6 +312,7 @@ nav.scrolled .nav-inner {
   display: flex; gap: 1.75rem; margin-top: auto;
   align-items: center; padding-bottom: 1.5rem;
 }
+.mobile-only { display: none; }
 .compat-logos span {
   font-size: 0.7rem; color: var(--text-3); font-weight: 400;
   letter-spacing: 0.02em; opacity: 0.5;
@@ -570,7 +571,9 @@ body.editing [data-edit]:focus {
   .hero { min-height: 100svh; padding: 3rem 0 3rem; gap: 3.5rem; justify-content: flex-start; padding-top: 12svh; }
   .hero h1 { margin-bottom: 1.5rem; }
   .hero-sub { margin-bottom: 0; }
-  .compat-logos { display: none; }
+  .compat-logos { display: flex; padding-bottom: 0.5rem; }
+  .desktop-only { display: none; }
+  .mobile-only { display: inline; }
   .demo-box { padding: 1.25rem 1.5rem 1.25rem; }
   .features-grid { grid-template-columns: 1fr; gap: 1rem; }
   .pricing-grid { grid-template-columns: 1fr; border-radius: 12px; }
