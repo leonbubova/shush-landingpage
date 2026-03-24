@@ -9,6 +9,50 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-40px' });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+// Parallax blobs — react to mouse movement
+const blobs = document.querySelectorAll('.blob');
+let mouseX = 0, mouseY = 0, blobX = 0, blobY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+});
+
+function animateBlobs() {
+  blobX += (mouseX - blobX) * 0.03;
+  blobY += (mouseY - blobY) * 0.03;
+  blobs.forEach((blob, i) => {
+    const factor = (i + 1) * 12;
+    blob.style.translate = `${blobX * factor}px ${blobY * factor}px`;
+  });
+  requestAnimationFrame(animateBlobs);
+}
+animateBlobs();
+
+// Shake detection on mobile — triggers blob pulse
+if ('DeviceMotionEvent' in window) {
+  let lastShake = 0;
+  let lastAcc = { x: 0, y: 0, z: 0 };
+
+  window.addEventListener('devicemotion', (e) => {
+    const acc = e.accelerationIncludingGravity;
+    if (!acc) return;
+    const delta = Math.abs(acc.x - lastAcc.x) + Math.abs(acc.y - lastAcc.y) + Math.abs(acc.z - lastAcc.z);
+    lastAcc = { x: acc.x, y: acc.y, z: acc.z };
+
+    if (delta > 25 && Date.now() - lastShake > 1500) {
+      lastShake = Date.now();
+      blobs.forEach(blob => {
+        blob.animate([
+          { transform: 'scale(1)', opacity: blob.style.opacity || 0.45 },
+          { transform: 'scale(1.4)', opacity: 0.8 },
+          { transform: 'scale(1)', opacity: blob.style.opacity || 0.45 }
+        ], { duration: 800, easing: 'ease-out' });
+      });
+    }
+  });
+}
+
 // Nav scroll effect
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
@@ -129,6 +173,32 @@ const phrases = [
   "reminder an mich selbst: das playstore approval endlich durchbekommen *daumendrück*"
 ];
 
+// Typing sound (Web Audio API — mechanical keyboard click)
+let audioCtx;
+document.addEventListener('click', () => {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}, { once: true });
+
+function playTypeClick() {
+  if (!audioCtx) return;
+  const t = audioCtx.currentTime;
+
+  // Thump — low sine with fast decay
+  const osc = audioCtx.createOscillator();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(150 + Math.random() * 30, t);
+  osc.frequency.exponentialRampToValueAtTime(60, t + 0.04);
+
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0.12, t);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(t);
+  osc.stop(t + 0.05);
+}
+
 const demoText = document.getElementById('demoText');
 let phraseIndex = 0;
 
@@ -145,6 +215,7 @@ function runDemo() {
   const typeInterval = setInterval(() => {
     if (charIndex < text.length) {
       demoText.innerHTML = text.slice(0, charIndex + 1) + '<span class="cursor"></span>';
+      if (text[charIndex] !== ' ' && charIndex % 2 === 0) playTypeClick();
       charIndex++;
     } else {
       clearInterval(typeInterval);
