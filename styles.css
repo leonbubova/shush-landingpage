@@ -137,7 +137,7 @@ nav.scrolled .nav-inner {
   min-height: 100vh;
   display: flex; flex-direction: column;
   justify-content: center;
-  padding: 5rem 0 4rem;
+  padding: 8rem 0 1.5rem;
   gap: 4rem;
 }
 .hero-copy { animation: fadeIn 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) both; }
@@ -309,8 +309,8 @@ nav.scrolled .nav-inner {
   font-style: normal; font-size: 0.8rem; color: var(--text-3);
 }
 .compat-logos {
-  display: flex; gap: 1.75rem; margin-top: 2.5rem;
-  align-items: center;
+  display: flex; gap: 1.75rem; margin-top: auto;
+  align-items: center; padding-bottom: 1.5rem;
 }
 .compat-logos span {
   font-size: 0.7rem; color: var(--text-3); font-weight: 400;
@@ -570,6 +570,7 @@ body.editing [data-edit]:focus {
   .hero { min-height: 100svh; padding: 3rem 0 3rem; gap: 3.5rem; justify-content: flex-start; padding-top: 12svh; }
   .hero h1 { margin-bottom: 1.5rem; }
   .hero-sub { margin-bottom: 0; }
+  .compat-logos { display: none; }
   .demo-box { padding: 1.25rem 1.5rem 1.25rem; }
   .features-grid { grid-template-columns: 1fr; gap: 1rem; }
   .pricing-grid { grid-template-columns: 1fr; border-radius: 12px; }
