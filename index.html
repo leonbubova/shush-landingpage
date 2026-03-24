@@ -20,10 +20,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>shush. deine stimme, dein text &lt;3</title>
-  <meta name="description" content="shush nimmt auf, was du sagst, und wandelt es sofort in text um. direkt in deinen lieblings apps.">
+  <meta name="description" content="shush nimmt auf, was du sagst, und macht daraus fertigen text. direkt in deine lieblings apps.">
+  <link rel="canonical" href="https://shush.love">
+  <meta name="theme-color" content="#121215">
   <meta property="og:title" content="shush. deine stimme, dein text">
-  <meta property="og:description" content="shush nimmt auf, was du sagst, und wandelt es sofort in text um. direkt in deinen lieblings apps.">
+  <meta property="og:description" content="shush nimmt auf, was du sagst, und macht daraus fertigen text. direkt in deine lieblings apps.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shush.love">
+  <meta property="og:locale" content="de_DE">
   <meta property="og:image" content="https://shush.love/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -71,9 +75,9 @@
         <div class="demo-header">
           <div class="demo-dot" id="demoDot"></div>
           <span class="demo-status" id="demoStatus">nimmt auf...</span>
-          <button class="mute-btn" id="muteBtn">unmute</button>
+          <button class="mute-btn" id="muteBtn" aria-label="Sound an/aus">unmute</button>
         </div>
-        <canvas class="waveform-canvas" id="waveform" width="920" height="80"></canvas>
+        <canvas class="waveform-canvas" id="waveform" width="920" height="80" aria-label="Waveform Animation"></canvas>
         <p class="demo-text" id="demoText"><span class="cursor"></span></p>
       </div>
       <a href="#pricing" class="hero-cta">

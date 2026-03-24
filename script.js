@@ -338,6 +338,7 @@ document.querySelectorAll('[data-legal]').forEach(link => {
 
 document.getElementById('legalClose').addEventListener('click', () => overlay.classList.remove('visible'));
 overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('visible'); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.classList.remove('visible'); });
 
 // --- LinkedIn (obfuscated) ---
 document.querySelector('.li-link').addEventListener('click', () => {

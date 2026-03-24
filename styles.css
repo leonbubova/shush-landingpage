@@ -17,7 +17,7 @@
   --serif: "Newsreader", Georgia, serif;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
 
 body {
   background: var(--bg);
@@ -601,4 +601,15 @@ body.editing [data-edit]:focus {
   .cta-submit { justify-content: center; }
   .btn { justify-content: center; }
   .nav-links a:first-child { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-in { opacity: 1; filter: none; transform: none; }
+  .blob { animation: none; }
 }
