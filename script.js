@@ -371,7 +371,7 @@ document.getElementById('editClose').addEventListener('click', () => toggleEdit(
 // 1. Tab blur/focus title swap
 const originalTitle = document.title;
 document.addEventListener('visibilitychange', () => {
-  document.title = document.hidden ? '🤫 psst… komm zurück' : originalTitle;
+  document.title = document.hidden ? '🤫 shushhh... komm zurück' : originalTitle;
 });
 
 // 2. Console message
