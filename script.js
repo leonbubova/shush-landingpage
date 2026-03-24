@@ -385,41 +385,26 @@ console.log(
   'font-size: 14px; color: #888; font-family: monospace;'
 );
 
-// 3. Ripple on any keypress
-document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
-  if (e.key.length !== 1) return;
-  const ripple = document.createElement('div');
-  Object.assign(ripple.style, {
-    position: 'fixed', top: '50%', left: '50%',
-    width: '0', height: '0', borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(196,181,253,0.15), transparent)',
-    transform: 'translate(-50%,-50%)', pointerEvents: 'none', zIndex: '9999',
-  });
-  document.body.appendChild(ripple);
-  ripple.animate([
-    { width: '0px', height: '0px', opacity: 1 },
-    { width: '120vmax', height: '120vmax', opacity: 0 }
-  ], { duration: 900, easing: 'ease-out' }).onfinish = () => ripple.remove();
-});
-
-// 4. Text scramble on h2 hover
-function scrambleText(el) {
-  const original = el.textContent;
-  const chars = '!@#$%^&*_+-=|;:<>?~abcdefghijklmnopqrstuvwxyz';
-  let iterations = 0;
-  const interval = setInterval(() => {
-    el.textContent = original.split('').map((char, i) => {
-      if (char === ' ') return ' ';
-      if (i < iterations) return original[i];
-      return chars[Math.floor(Math.random() * chars.length)];
-    }).join('');
-    iterations += 1 / 3;
-    if (iterations >= original.length) { clearInterval(interval); el.textContent = original; }
-  }, 30);
-}
+// 4. Text swap on h2 hover — shows a cute message, then reverts
+const cuteMessages = [
+  'shush hört dir zu <3',
+  'shush weiß was du sagen willst :3',
+  'shush versteht schon :)',
+  'sag einfach was du denkst <3',
+  'shush macht den rest :)',
+];
 document.querySelectorAll('h2').forEach(h => {
-  h.addEventListener('mouseenter', () => scrambleText(h));
+  let timeout;
+  h.addEventListener('mouseenter', () => {
+    const original = h.textContent;
+    const msg = cuteMessages[Math.floor(Math.random() * cuteMessages.length)];
+    h.textContent = msg;
+    timeout = setTimeout(() => { h.textContent = original; }, 1500);
+    h.addEventListener('mouseleave', () => {
+      clearTimeout(timeout);
+      h.textContent = original;
+    }, { once: true });
+  });
 });
 
 // 6. Scroll progress bar
