@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#121215"/>
+
+  <!-- Card -->
+  <rect x="250" y="80" width="700" height="470" rx="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5"/>
+
+  <!-- Dot + Status -->
+  <circle cx="310" cy="145" r="5" fill="#c4b5fd" opacity="0.7"/>
+  <text x="330" y="150" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="400" fill="rgba(220,220,222,0.45)" letter-spacing="0.1em" text-transform="uppercase">FERTIG</text>
+
+  <!-- Waveform line -->
+  <line x1="300" y1="220" x2="900" y2="220" stroke="rgba(196,181,253,0.15)" stroke-width="1.5"/>
+
+  <!-- Demo text -->
+  <text x="300" y="320" font-family="Inter, -apple-system, sans-serif" font-size="26" font-weight="300" fill="rgba(220,220,222,0.65)" line-height="1.6">
+    <tspan x="300" dy="0">schreib kevin: ja ich hab deine nachricht</tspan>
+    <tspan x="300" dy="42">gesehen, nein ich hab nicht geantwortet,</tspan>
+    <tspan x="300" dy="42">sorry.</tspan>
+  </text>
+
+  <!-- Branding -->
+  <text x="600" y="590" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-style="italic" font-weight="400" fill="rgba(220,220,222,0.25)">shush.love</text>
+</svg>
