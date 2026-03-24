@@ -177,15 +177,10 @@ const phrases = [
 let audioCtx;
 let soundMuted = true;
 
-function updateMuteIcon() {
-  document.getElementById('muteIcon').style.display = soundMuted ? '' : 'none';
-  document.getElementById('unmuteIcon').style.display = soundMuted ? 'none' : '';
-}
-
 document.getElementById('muteBtn').addEventListener('click', () => {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   soundMuted = !soundMuted;
-  updateMuteIcon();
+  document.getElementById('muteBtn').textContent = soundMuted ? 'unmute' : 'mute';
 });
 
 function playTypeClick() {
