@@ -407,6 +407,14 @@ nav.scrolled .nav-inner {
 }
 .cta-submit:hover { opacity: 0.85; }
 .cta-submit svg { width: 14px; height: 14px; flex-shrink: 0; }
+.cta-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.honeypot { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+.cta-feedback {
+  margin-top: 0.75rem; font-size: 0.8rem; font-weight: 300;
+  color: var(--text-2); min-height: 1.2em;
+}
+.cta-feedback.success { color: var(--accent); }
+.cta-feedback.error { color: #e57373; }
 
 /* Buttons */
 .btn {

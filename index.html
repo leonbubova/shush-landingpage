@@ -192,14 +192,13 @@
       <div class="cta-glow"></div>
       <h2 data-key="ctaTitle">werde teil der <em>reise</em></h2>
       <p data-key="ctaSub">wir dokumentieren die entwicklung von shush transparent. du willst feedback geben oder zu den ersten usern gehören?</p>
-      <form class="cta-form" action="https://formsubmit.co/paperworks@bubova.de" method="POST">
-        <input type="hidden" name="_subject" value="shush — neue waitlist anmeldung">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="">
+      <form class="cta-form" id="waitlistForm">
+        <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
         <div class="cta-input-row">
-          <input type="email" name="email" placeholder="deine email" required>
+          <input type="email" name="email" id="waitlistEmail" placeholder="deine email" required>
           <button type="submit" class="cta-submit">dabei sein <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
         </div>
+        <p class="cta-feedback" id="waitlistFeedback"></p>
       </form>
     </section>
 

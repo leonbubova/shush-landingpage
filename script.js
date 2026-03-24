@@ -153,6 +153,51 @@ document.querySelectorAll('.style-opt').forEach(btn => {
   });
 });
 
+// --- Waitlist form ---
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx5AyB2SfhzWVuPluf4clhcAjRcGbcy_ZFhaQQvMBqfbYunKd0S7I7C2mL3xZ83SqrR/exec';
+
+document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const feedback = document.getElementById('waitlistFeedback');
+  const btn = form.querySelector('.cta-submit');
+  const email = document.getElementById('waitlistEmail').value.trim();
+
+  // Honeypot check
+  if (form.querySelector('.honeypot').value) return;
+
+  btn.disabled = true;
+  btn.textContent = '...';
+  feedback.textContent = '';
+  feedback.className = 'cta-feedback';
+
+  try {
+    const res = await fetch(SHEET_URL, {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+
+    if (data.result === 'ok') {
+      feedback.textContent = 'du bist dabei!';
+      feedback.classList.add('success');
+      form.reset();
+    } else if (data.result === 'duplicate') {
+      feedback.textContent = 'diese email ist bereits registriert.';
+      feedback.classList.add('success');
+    } else {
+      feedback.textContent = data.message || 'etwas ist schiefgelaufen.';
+      feedback.classList.add('error');
+    }
+  } catch {
+    feedback.textContent = 'verbindung fehlgeschlagen. versuch es nochmal.';
+    feedback.classList.add('error');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = 'dabei sein <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+});
+
 // --- Editor ---
 let editMode = false;
 
