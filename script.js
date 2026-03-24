@@ -154,7 +154,36 @@ document.querySelectorAll('.style-opt').forEach(btn => {
 });
 
 // --- Waitlist form ---
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx5AyB2SfhzWVuPluf4clhcAjRcGbcy_ZFhaQQvMBqfbYunKd0S7I7C2mL3xZ83SqrR/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx0f4RDYBHSiyIqHFme8oCJ5DIffUfzsiSHtOH2qM5D8Lv2ATUMiu4GD1lnxd5gzTfp/exec';
+
+let jsonpCounter = 0;
+
+function submitWaitlist(email) {
+  return new Promise((resolve, reject) => {
+    const cbName = '_waitlistCb' + (++jsonpCounter);
+    const timeout = setTimeout(() => {
+      cleanup();
+      reject(new Error('timeout'));
+    }, 10000);
+
+    function cleanup() {
+      clearTimeout(timeout);
+      delete window[cbName];
+      const el = document.getElementById(cbName);
+      if (el) el.remove();
+    }
+
+    window[cbName] = (data) => {
+      cleanup();
+      resolve(data);
+    };
+
+    const script = document.createElement('script');
+    script.id = cbName;
+    script.src = SHEET_URL + '?callback=' + cbName + '&email=' + encodeURIComponent(email);
+    document.body.appendChild(script);
+  });
+}
 
 document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -163,7 +192,6 @@ document.getElementById('waitlistForm').addEventListener('submit', async (e) => 
   const btn = form.querySelector('.cta-submit');
   const email = document.getElementById('waitlistEmail').value.trim();
 
-  // Honeypot check
   if (form.querySelector('.honeypot').value) return;
 
   btn.disabled = true;
@@ -172,14 +200,7 @@ document.getElementById('waitlistForm').addEventListener('submit', async (e) => 
   feedback.className = 'cta-feedback';
 
   try {
-    const res = await fetch(SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ email }),
-    });
-    // no-cors returns opaque response, so we assume success
-    const data = { result: 'ok' };
+    const data = await submitWaitlist(email);
 
     if (data.result === 'ok') {
       feedback.textContent = 'du bist dabei!';
