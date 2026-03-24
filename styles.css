@@ -308,7 +308,7 @@ nav.scrolled .nav-inner {
 .testimonial { padding: 3rem 0; }
 .testimonial blockquote {
   font-family: var(--serif); font-style: italic;
-  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
   line-height: 1.6; color: var(--text-2); margin-bottom: 1.25rem;
   max-width: 540px;
 }
