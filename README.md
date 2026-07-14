@@ -23,6 +23,10 @@ die app ist noch nicht im app store, aber bereits nutzbar. als early-access user
 
 **[APK herunterladen (v0.8.0)](https://github.com/leonbubova/shush-app/releases/download/v0.8.0/shush-app-v0.8.0.apk)**
 
+## desktop
+
+shush gibt's auch für mac und windows (early access, v0.1.0): rechte option-taste (windows: rechte alt-taste) halten, sprechen, loslassen. der text landet im aktiven textfeld. downloads im [release](https://github.com/leonbubova/shush-app-releases/releases/tag/desktop-v0.1.0).
+
 ## pricing
 
 | plan | preis | |
